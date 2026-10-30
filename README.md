@@ -1,6 +1,6 @@
 # Portfolio — MD. Nurul Huda
 
-Personal portfolio website. Live at **https://nurulhudaarosh.github.io/Portfolio/**
+Personal portfolio website. Live at **https://nurulhudaarosh.github.io/**
 
 ## Features
 
@@ -26,4 +26,4 @@ python3 -m http.server 8000
 
 ## Deploy
 
-Push to `main` → GitHub Actions deploys to GitHub Pages at https://nurulhudaarosh.github.io/Portfolio/.
+Push to `main` → GitHub Actions deploys to GitHub Pages at https://nurulhudaarosh.github.io/.
