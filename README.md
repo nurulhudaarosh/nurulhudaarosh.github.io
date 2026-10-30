@@ -4,7 +4,11 @@ Personal portfolio website. Live at **https://nurulhudaarosh.github.io/**
 
 ## Features
 
-- Clean editorial design (Instrument Serif / Inter / JetBrains Mono) with light & dark mode that follows the system setting
+- Editorial design (Fraunces / Bricolage Grotesque / JetBrains Mono / Caveat) with light & dark mode that follows the system setting
+- **English / বাংলা** language toggle (Tiro Bangla, Hind Siliguri, Galada) with Bangla digits
+- **2D / 3D view**: 3D adds a perspective floor, tilting cards with glare, 3D scroll entrances and a draggable skills sphere
+- Rotating quotes (Quran, Hadith, poets, writers, philosophers) with sources and Arabic originals
+- Preferences are remembered and shareable via URL, e.g. `?lang=bn&view=3d&theme=dark`
 - Sections: About & education, experience & leadership, achievements, filterable projects, skills, contact
 - Interactive terminal (`help`, `projects`, `cv`, …) with history (↑/↓) and Tab autocomplete
 - Contact form opens a prefilled email draft (no backend needed)

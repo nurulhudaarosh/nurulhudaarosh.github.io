@@ -15,9 +15,12 @@
   --grid: rgba(22, 23, 26, 0.045);
   --shadow: 0 1px 2px rgba(22, 23, 26, 0.04), 0 8px 24px -12px rgba(22, 23, 26, 0.12);
 
-  --serif: 'Instrument Serif', 'Times New Roman', serif;
-  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif: 'Fraunces', 'Tiro Bangla', Georgia, serif;
+  --sans: 'Bricolage Grotesque', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'Hind Siliguri', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --hand: 'Caveat', 'Galada', cursive;
+  --arabic: 'Amiri', 'Times New Roman', serif;
+  --display-axes: 'SOFT' 100, 'WONK' 1;
 
   --radius: 14px;
   --container: 1120px;
@@ -447,9 +450,18 @@ textarea:focus-visible {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-  gap: clamp(32px, 6vw, 80px);
-  align-items: center;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-areas:
+    "copy portrait"
+    "copy quote";
+  column-gap: clamp(32px, 6vw, 80px);
+  row-gap: 22px;
+  align-items: start;
+}
+
+.hero-copy {
+  grid-area: copy;
+  align-self: center;
 }
 
 .eyebrow {
@@ -481,15 +493,23 @@ textarea:focus-visible {
 .hero-title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(3rem, 8vw, 5.6rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+}
+
+.hero-name {
+  display: block;
+  font-size: clamp(2.9rem, 7vw, 5rem);
+  font-weight: 380;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variation-settings: var(--display-axes);
 }
 
 .hero-sub {
   display: block;
-  margin-top: 14px;
-  font-size: clamp(1.6rem, 3.6vw, 2.45rem);
+  margin-top: 16px;
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  font-weight: 340;
+  font-variation-settings: var(--display-axes);
   line-height: 1.15;
   color: var(--ink-2);
   letter-spacing: -0.01em;
@@ -499,6 +519,7 @@ textarea:focus-visible {
 .hero-sub em,
 .contact-big em {
   font-style: italic;
+  font-weight: 500;
   color: var(--accent);
 }
 
@@ -535,14 +556,16 @@ textarea:focus-visible {
 }
 
 .portrait {
-  justify-self: end;
-  width: min(100%, 340px);
+  grid-area: portrait;
+  position: relative;
+  justify-self: start;
+  width: min(100%, 230px);
 }
 
 .portrait-frame {
   position: relative;
   aspect-ratio: 5 / 6;
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 118%, var(--accent) 0 48%, transparent 48.5%),
@@ -570,10 +593,242 @@ textarea:focus-visible {
 }
 
 .portrait figcaption {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
+  margin-top: 10px;
   color: var(--ink-3);
+  font-size: 0.7rem;
+}
+
+.coords {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.coords:hover {
+  color: var(--accent);
+}
+
+.coords svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.hand {
+  font-family: var(--hand);
+}
+
+.hello {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 26%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: max-content;
+  max-width: 150px;
+  color: var(--accent);
+  font-size: 1.55rem;
+  line-height: 1.05;
+  transform: rotate(-6deg);
+}
+
+:root[lang="bn"] .hello {
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.hello svg {
+  width: 40px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Quote card */
+.quote-card {
+  grid-area: quote;
+  position: relative;
+  padding: 18px 20px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+  box-shadow: var(--shadow);
+}
+
+.quote-card::before {
+  content: '\201C';
+  position: absolute;
+  right: 18px;
+  bottom: -26px;
+  font-family: var(--serif);
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.quote-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.quote-cat {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+:root[lang="bn"] .quote-cat {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.78rem;
+}
+
+.quote-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.quote-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.quote-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.quote-body {
+  min-height: 132px;
+  margin-top: 14px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.quote-body.is-changing {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.quote-ar {
+  font-family: var(--arabic);
+  font-size: 1.35rem;
+  line-height: 1.9;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+.quote-ar:empty {
+  display: none;
+}
+
+.quote-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 360;
+  font-size: 1.22rem;
+  line-height: 1.38;
+  font-variation-settings: var(--display-axes);
+}
+
+:root[lang="bn"] .quote-text {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.quote-src {
+  margin-top: 10px;
+  color: var(--ink-3);
+  font-size: 0.72rem;
+}
+
+.quote-src::before {
+  content: '— ';
+}
+
+.quote-progress {
+  height: 2px;
+  margin-top: 14px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.quote-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.quote-progress span.is-running {
+  animation: quote-timer var(--quote-time, 9s) linear forwards;
+}
+
+.quote-card:hover .quote-progress span {
+  animation-play-state: paused;
+}
+
+@keyframes quote-timer {
+  to { transform: scaleX(1); }
+}
+
+/* Toggles */
+.pill-btn {
+  height: 38px;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.pill-btn:hover {
+  border-color: var(--ink);
+}
+
+#langToggle .when-en {
+  font-family: 'Hind Siliguri', var(--sans);
+  font-size: 0.9rem;
+}
+
+:root[lang="bn"] .when-en,
+:root:not([lang="bn"]) .when-bn,
+:root[data-view="3d"] .when-2d,
+:root:not([data-view="3d"]) .when-3d {
+  display: none;
 }
 
 .stats {
@@ -629,7 +884,8 @@ textarea:focus-visible {
 
 .section-head h2 {
   font-family: var(--serif);
-  font-weight: 400;
+  font-weight: 380;
+  font-variation-settings: var(--display-axes);
   font-size: clamp(2.2rem, 5vw, 3.4rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -752,6 +1008,7 @@ textarea:focus-visible {
 }
 
 .award {
+  position: relative;
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -799,6 +1056,7 @@ textarea:focus-visible {
 }
 
 .project {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 26px;
@@ -844,8 +1102,9 @@ textarea:focus-visible {
 
 .project h3 {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: 1.75rem;
+  font-weight: 420;
+  font-variation-settings: var(--display-axes);
+  font-size: 1.6rem;
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
@@ -1253,18 +1512,23 @@ textarea:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .hero-grid {
+    grid-template-areas:
+      "portrait"
+      "copy"
+      "quote";
+  }
+
   .portrait {
-    order: -1;
-    justify-self: start;
-    width: 168px;
+    width: 150px;
   }
 
   .portrait-frame {
-    border-radius: 18px;
+    border-radius: 16px;
   }
 
-  .portrait figcaption {
-    display: none;
+  .hello {
+    font-size: 1.35rem;
   }
 
   .stats {
@@ -1342,5 +1606,206 @@ textarea:focus-visible {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ==========================================================================
+   Bangla typography
+   ========================================================================== */
+:root[lang="bn"] body {
+  line-height: 1.8;
+}
+
+:root[lang="bn"] .label,
+:root[lang="bn"] .stats dt,
+:root[lang="bn"] .skill-row h3,
+:root[lang="bn"] .field span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.86rem;
+}
+
+:root[lang="bn"] .hero-name {
+  font-size: clamp(2.6rem, 6.4vw, 4.4rem);
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+:root[lang="bn"] .hero-sub,
+:root[lang="bn"] .section-head h2,
+:root[lang="bn"] .contact-big,
+:root[lang="bn"] .about-text .lede {
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   3D view
+   ========================================================================== */
+.floor,
+.sphere-wrap {
+  display: none;
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.28), transparent 55%);
+  mix-blend-mode: soft-light;
+  transition: opacity 0.3s ease;
+}
+
+:root[data-view="3d"] .floor {
+  display: block;
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 70%;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 55%, transparent) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, transparent) 1.5px, transparent 1.5px);
+  background-size: 64px 64px;
+  transform: perspective(520px) rotateX(70deg);
+  transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 95%);
+  mask-image: linear-gradient(to top, #000 10%, transparent 95%);
+  animation: floor-move 2.6s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floor-move {
+  to { background-position: 0 64px; }
+}
+
+:root[data-view="3d"] .hero {
+  background-image: radial-gradient(ellipse 70% 50% at 50% 100%, var(--accent-soft), transparent 70%);
+  background-size: auto;
+  overflow: hidden;
+}
+
+:root[data-view="3d"] .hero::after {
+  display: none;
+}
+
+/* 3D entrance animations briefly exceed the viewport; never let that scroll sideways */
+:root[data-view="3d"] main {
+  overflow-x: clip;
+}
+
+:root[data-view="3d"] .tilt {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--tz, 0px));
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out, opacity 0.7s ease, box-shadow 0.3s ease, border-color 0.25s ease;
+}
+
+:root[data-view="3d"] .tilt:hover {
+  --tz: 24px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.45);
+}
+
+:root[data-view="3d"] .tilt:hover .glare {
+  opacity: 1;
+}
+
+:root[data-view="3d"] .project h3,
+:root[data-view="3d"] .award-rank {
+  transition: transform 0.25s ease-out;
+}
+
+:root[data-view="3d"] .project:hover h3,
+:root[data-view="3d"] .award:hover .award-rank {
+  transform: translateZ(36px);
+}
+
+:root[data-view="3d"] .hero-name,
+:root[data-view="3d"] .section-head h2 {
+  text-shadow:
+    1px 1px 0 var(--line-strong),
+    2px 2px 0 var(--line-strong),
+    3px 3px 0 var(--line-strong),
+    4px 4px 0 color-mix(in srgb, var(--accent) 55%, transparent),
+    8px 12px 18px rgba(0, 0, 0, 0.18);
+}
+
+:root[data-view="3d"] .reveal:not(.is-visible) {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(28deg) translateY(56px) scale(0.95);
+  transform-origin: 50% 100%;
+}
+
+:root[data-view="3d"] .xp-item.reveal:not(.is-visible):nth-child(odd) {
+  transform: perspective(1000px) rotateY(-18deg) translateX(-30px);
+}
+
+:root[data-view="3d"] .xp-item.reveal:not(.is-visible):nth-child(even) {
+  transform: perspective(1000px) rotateY(18deg) translateX(30px);
+}
+
+/* Skills sphere */
+:root[data-view="3d"] .sphere-wrap {
+  display: grid;
+  place-items: center;
+  position: relative;
+  height: clamp(360px, 52vw, 480px);
+  padding-bottom: 28px;
+  margin-bottom: 8px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+:root[data-view="3d"] .sphere-wrap:active {
+  cursor: grabbing;
+}
+
+.sphere {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.sphere span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 6px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.sphere span.is-accent {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sphere-hint {
+  position: absolute;
+  bottom: 0;
+  color: var(--ink-3);
+}
+
+/* Keep the skills table for screen readers while the sphere is shown */
+:root[data-view="3d"] .skills {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-view="3d"] .floor {
+    animation: none;
   }
 }

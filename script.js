@@ -1,4 +1,6 @@
+const root = document.documentElement;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const EMAIL = 'mhuda223303@bscse.uiu.ac.bd';
 const CV_URL = 'MD-Nurul-Huda-CV.pdf';
 
@@ -6,6 +8,13 @@ const CV_URL = 'MD-Nurul-Huda-CV.pdf';
 function track(name, params) {
   if (typeof gtag === 'function') gtag('event', name, params);
 }
+
+function savePref(key, value) {
+  try { localStorage.setItem(key, value); } catch (e) {}
+}
+
+const bnDigits = (s) => String(s).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+const lang = () => (root.getAttribute('lang') === 'bn' ? 'bn' : 'en');
 
 // Navigation
 const nav = document.getElementById('nav');
@@ -53,25 +62,119 @@ const themeToggle = document.getElementById('themeToggle');
 const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 function currentTheme() {
-  return document.documentElement.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
+  return root.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
 }
 
 themeToggle.addEventListener('click', () => {
   const next = currentTheme() === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  try { localStorage.setItem('theme', next); } catch (e) {}
+  root.setAttribute('data-theme', next);
+  savePref('theme', next);
+  track('preference', { theme: next });
 });
 
-// Dhaka local time
-const clock = document.getElementById('clock');
-const timeFormat = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Dhaka' });
+// Language (English / Bangla)
+const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+i18nNodes.forEach(el => { el.dataset.en = el.innerHTML; });
+const enTitle = document.title;
 
-function updateClock() {
-  clock.textContent = `Dhaka ${timeFormat.format(new Date())}`;
+function applyLanguage(next) {
+  root.setAttribute('lang', next);
+  i18nNodes.forEach(el => {
+    const bn = window.I18N_BN[el.dataset.i18n];
+    el.innerHTML = next === 'bn' && bn ? bn : el.dataset.en;
+  });
+  document.title = next === 'bn' ? 'মো. নুরুল হুদা | পোর্টফোলিও' : enTitle;
+  const year = new Date().getFullYear();
+  document.getElementById('year').textContent = next === 'bn' ? bnDigits(year) : year;
+  updateClock();
+  renderQuote(false);
+  buildSphere();
 }
 
-updateClock();
-setInterval(updateClock, 30000);
+document.getElementById('langToggle').addEventListener('click', () => {
+  const next = lang() === 'bn' ? 'en' : 'bn';
+  applyLanguage(next);
+  savePref('lang', next);
+  track('preference', { lang: next });
+});
+
+// View (2D / 3D)
+const viewToggle = document.getElementById('viewToggle');
+
+function setView(next) {
+  root.setAttribute('data-view', next);
+  savePref('view', next);
+  document.querySelectorAll('.tilt').forEach(el => {
+    el.style.removeProperty('--rx');
+    el.style.removeProperty('--ry');
+  });
+  if (next === '3d') startSphere(); else stopSphere();
+}
+
+viewToggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-view') === '3d' ? '2d' : '3d';
+  setView(next);
+  track('preference', { view: next });
+});
+
+// Dhaka local time (12-hour)
+const clock = document.getElementById('clock');
+
+function updateClock() {
+  const locale = lang() === 'bn' ? 'bn-BD' : 'en-US';
+  const time = new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Dhaka' }).format(new Date());
+  clock.textContent = `${window.UI_TEXT[lang()].dhaka} ${time}`;
+}
+
+setInterval(updateClock, 15000);
+
+// Quotes
+const quoteBody = document.getElementById('quoteBody');
+const quoteCat = document.getElementById('quoteCat');
+const quoteAr = document.getElementById('quoteAr');
+const quoteText = document.getElementById('quoteText');
+const quoteSrc = document.getElementById('quoteSrc');
+const quoteBar = document.getElementById('quoteBar');
+const QUOTE_TIME = 9000;
+let quoteIndex = Math.floor(Math.random() * window.QUOTES.length);
+
+function renderQuote(animate = true) {
+  const q = window.QUOTES[quoteIndex];
+  const l = lang();
+  const fill = () => {
+    quoteCat.textContent = window.UI_TEXT[l].quotes[q.cat];
+    quoteAr.textContent = q.ar || '';
+    quoteText.textContent = q[l];
+    quoteText.lang = l;
+    quoteSrc.textContent = q.src[l];
+    quoteBody.classList.remove('is-changing');
+  };
+  if (animate && !reduceMotion) {
+    quoteBody.classList.add('is-changing');
+    setTimeout(fill, 300);
+  } else {
+    fill();
+  }
+  restartQuoteTimer();
+}
+
+function restartQuoteTimer() {
+  if (reduceMotion) return;
+  quoteBar.classList.remove('is-running');
+  void quoteBar.offsetWidth;
+  quoteBar.style.setProperty('--quote-time', `${QUOTE_TIME}ms`);
+  quoteBar.classList.add('is-running');
+}
+
+function stepQuote(dir) {
+  quoteIndex = (quoteIndex + dir + window.QUOTES.length) % window.QUOTES.length;
+  renderQuote();
+}
+
+// The progress bar drives rotation, so hovering the card (which pauses the bar) pauses the quotes too
+quoteBar.addEventListener('animationend', () => stepQuote(1));
+document.getElementById('quotePrev').addEventListener('click', () => stepQuote(-1));
+document.getElementById('quoteNext').addEventListener('click', () => stepQuote(1));
 
 // Reveal on scroll
 const revealTargets = document.querySelectorAll('.section-head, .about-grid, .xp-item, .award, .project, .skill-row, .console, .contact-grid, .stats');
@@ -91,6 +194,127 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
     revealObserver.observe(el);
   });
 }
+
+// 3D tilt (mouse / trackpad only)
+if (finePointer && !reduceMotion) {
+  document.querySelectorAll('.tilt').forEach(el => {
+    const max = el.classList.contains('project') || el.classList.contains('award') ? 10 : 7;
+    el.addEventListener('pointermove', (e) => {
+      if (root.getAttribute('data-view') !== '3d') return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--ry', `${(x - 0.5) * max * 2}deg`);
+      el.style.setProperty('--rx', `${(0.5 - y) * max * 2}deg`);
+      el.style.setProperty('--mx', `${x * 100}%`);
+      el.style.setProperty('--my', `${y * 100}%`);
+    });
+    el.addEventListener('pointerleave', () => {
+      el.style.removeProperty('--rx');
+      el.style.removeProperty('--ry');
+    });
+  });
+}
+
+// Skills sphere (3D view)
+const sphereWrap = document.querySelector('.sphere-wrap');
+const sphere = document.getElementById('sphere');
+const AUTO_SPIN = reduceMotion ? 0 : 0.0035;
+let sphereItems = [];
+let sphereRAF = null;
+let rotX = -0.3;
+let rotY = 0;
+let velX = 0;
+let velY = AUTO_SPIN;
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
+
+function buildSphere() {
+  const labels = Array.from(document.querySelectorAll('.skill-row h3')).map(h => h.textContent);
+  const skills = Array.from(document.querySelectorAll('.skills .tags li')).map(li => li.textContent.replace(/ — .*/, ''));
+  // Spread the category labels evenly between the skills
+  const words = skills.map(text => ({ text, label: false }));
+  labels.forEach((text, i) => words.splice(Math.round(((i + 0.5) * words.length) / labels.length) + i, 0, { text, label: true }));
+  const n = words.length;
+  sphere.innerHTML = '';
+  sphereItems = words.map((word, i) => {
+    // Fibonacci sphere: evenly spread points
+    const y = 1 - (i / (n - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const theta = Math.PI * (3 - Math.sqrt(5)) * i;
+    const span = document.createElement('span');
+    span.textContent = word.text;
+    if (word.label) span.classList.add('is-accent');
+    sphere.appendChild(span);
+    return { el: span, x: Math.cos(theta) * r, y, z: Math.sin(theta) * r };
+  });
+  renderSphere();
+}
+
+function renderSphere() {
+  const radius = Math.min(sphereWrap.clientWidth * 0.38, 190);
+  const cx = Math.cos(rotX), sx = Math.sin(rotX), cy = Math.cos(rotY), sy = Math.sin(rotY);
+  sphereItems.forEach(p => {
+    // rotate around Y, then X
+    const x1 = p.x * cy + p.z * sy;
+    const z1 = -p.x * sy + p.z * cy;
+    const y2 = p.y * cx - z1 * sx;
+    const z2 = p.y * sx + z1 * cx;
+    const depth = (z2 + 1) / 2;
+    p.el.style.transform = `translate(-50%, -50%) translate3d(${x1 * radius}px, ${y2 * radius}px, 0) scale(${0.6 + depth * 0.55})`;
+    p.el.style.opacity = 0.25 + depth * 0.75;
+    p.el.style.zIndex = Math.round(depth * 100);
+  });
+}
+
+function tickSphere() {
+  rotY += velY;
+  rotX += velX;
+  if (!dragging) {
+    velX *= 0.95;
+    velY = velY * 0.95 + AUTO_SPIN * 0.05;
+  }
+  renderSphere();
+  sphereRAF = requestAnimationFrame(tickSphere);
+}
+
+function startSphere() {
+  if (!sphereItems.length) buildSphere();
+  if (!sphereRAF) sphereRAF = requestAnimationFrame(tickSphere);
+}
+
+function stopSphere() {
+  cancelAnimationFrame(sphereRAF);
+  sphereRAF = null;
+}
+
+sphereWrap.addEventListener('pointerdown', (e) => {
+  dragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  sphereWrap.setPointerCapture(e.pointerId);
+});
+
+sphereWrap.addEventListener('pointermove', (e) => {
+  if (!dragging) return;
+  velY = (e.clientX - lastX) * 0.005;
+  velX = -(e.clientY - lastY) * 0.005;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+
+['pointerup', 'pointercancel'].forEach(type => sphereWrap.addEventListener(type, () => { dragging = false; }));
+
+// Only animate the sphere while it is on screen
+new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (root.getAttribute('data-view') !== '3d') return;
+    if (entry.isIntersecting) startSphere(); else stopSphere();
+  });
+}).observe(sphereWrap);
+
+window.addEventListener('resize', () => { if (sphereItems.length) renderSphere(); });
 
 // Project filters
 const filterButtons = document.querySelectorAll('.filters .chip');
@@ -124,11 +348,14 @@ const commands = {
     { text: '  awards       achievements' },
     { text: '  skills       languages and tools' },
     { text: '  contact      how to reach me' },
+    { text: '  quote        a random quote' },
     { text: '  cv           open my CV (PDF)' },
     { text: '  github       open my GitHub' },
     { text: '  linkedin     open my LinkedIn' },
     { text: '  email        copy my email' },
     { text: '  theme        toggle light/dark' },
+    { text: '  3d / 2d      switch the page view' },
+    { text: '  bangla       switch to Bangla (english to go back)' },
     { text: '  clear        clear the screen' },
   ],
 
@@ -188,6 +415,11 @@ const commands = {
     { text: 'GitHub    github.com/nurulhudaarosh' },
   ],
 
+  quote: () => {
+    const q = window.QUOTES[Math.floor(Math.random() * window.QUOTES.length)];
+    return [{ text: `"${q.en}"`, class: 'title' }, { text: `  — ${q.src.en}`, class: 'dim' }];
+  },
+
   cv: () => {
     window.open(CV_URL, '_blank');
     track('cv_download', { link_url: CV_URL, source: 'terminal' });
@@ -216,6 +448,28 @@ const commands = {
   theme: () => {
     themeToggle.click();
     return [{ text: `Switched to ${currentTheme()} mode.`, class: 'success' }];
+  },
+
+  '3d': () => {
+    setView('3d');
+    return [{ text: 'Switched to 3D view. Hover the cards and spin the skills sphere.', class: 'success' }];
+  },
+
+  '2d': () => {
+    setView('2d');
+    return [{ text: 'Switched to 2D view.', class: 'success' }];
+  },
+
+  bangla: () => {
+    applyLanguage('bn');
+    savePref('lang', 'bn');
+    return [{ text: 'ভাষা বাংলায় পরিবর্তন করা হয়েছে।', class: 'success' }];
+  },
+
+  english: () => {
+    applyLanguage('en');
+    savePref('lang', 'en');
+    return [{ text: 'Language switched to English.', class: 'success' }];
   },
 
   whoami: () => [{ text: 'a curious visitor :)' }],
@@ -251,7 +505,7 @@ function run(input) {
   echo(input);
   if (!cmd) return;
   track('terminal_command', { command: cmd.slice(0, 30) });
-  if (commands[cmd]) {
+  if (Object.prototype.hasOwnProperty.call(commands, cmd)) {
     print(commands[cmd]());
   } else {
     print([
@@ -328,4 +582,6 @@ document.addEventListener('click', (e) => {
   else if (/^https?:/.test(href)) track('outbound_click', { link_url: href, link_text: label, project: project || '' });
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+// Initial render
+applyLanguage(lang());
+if (root.getAttribute('data-view') === '3d') startSphere();
