@@ -6,7 +6,7 @@ Personal portfolio website. Live at **https://nurulhudaarosh.github.io/**
 
 - Editorial design (Fraunces / Bricolage Grotesque / JetBrains Mono / Caveat) with light & dark mode that follows the system setting
 - **2D / 3D view**: 3D adds a perspective floor, tilting cards with glare, 3D scroll entrances and a draggable skills sphere
-- Rotating quotes (Quran, Hadith, poets, writers, philosophers) with sources and Arabic originals
+- Rotating quotes in their original language (Arabic with Bangla translation, Bangla poets, Greek, Chinese, French and English with translations) and sources
 - Preferences are remembered and shareable via URL, e.g. `?view=3d&theme=dark`
 - Sections: About & education, experience & leadership, achievements, filterable projects, skills, contact
 - Interactive terminal (`help`, `projects`, `cv`, …) with history (↑/↓) and Tab autocomplete

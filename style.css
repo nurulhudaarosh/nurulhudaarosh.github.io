@@ -714,7 +714,7 @@ textarea:focus-visible {
 }
 
 .quote-body {
-  min-height: 132px;
+  min-height: 150px;
   margin-top: 14px;
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
@@ -724,31 +724,70 @@ textarea:focus-visible {
   transform: translateY(6px);
 }
 
-.quote-ar {
-  font-family: var(--arabic);
-  font-size: 1.35rem;
-  line-height: 1.9;
-  color: var(--ink-2);
-  text-align: right;
-}
-
-.quote-ar:empty {
-  display: none;
-}
-
-.quote-text {
+.quote-orig {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 360;
   font-size: 1.22rem;
-  line-height: 1.38;
+  line-height: 1.4;
+  white-space: pre-line;
   font-variation-settings: var(--display-axes);
+}
+
+.quote-orig:lang(ar) {
+  font-family: 'Amiri', serif;
+  font-style: normal;
+  font-size: 1.55rem;
+  line-height: 1.8;
+  text-align: right;
+}
+
+.quote-orig:lang(bn) {
+  font-family: 'Tiro Bangla', serif;
+  font-style: normal;
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+.quote-orig:lang(grc) {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.12rem;
+}
+
+.quote-orig:lang(zh-Hant) {
+  font-family: 'Noto Serif TC', serif;
+  font-style: normal;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+}
+
+.quote-trans {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.quote-trans:empty {
+  display: none;
+}
+
+.quote-trans:lang(bn) {
+  font-family: 'Tiro Bangla', serif;
+  font-size: 1.02rem;
 }
 
 .quote-src {
   margin-top: 10px;
   color: var(--ink-3);
-  font-size: 0.72rem;
+  font-family: var(--mono), 'Tiro Bangla';
+  font-size: 0.74rem;
+}
+
+.quote-src:lang(bn) {
+  font-family: 'Tiro Bangla', serif;
+  font-size: 0.86rem;
+  letter-spacing: 0;
 }
 
 .quote-src::before {

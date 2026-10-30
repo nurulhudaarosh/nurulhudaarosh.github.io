@@ -104,8 +104,8 @@ setInterval(updateClock, 15000);
 // Quotes
 const quoteBody = document.getElementById('quoteBody');
 const quoteCat = document.getElementById('quoteCat');
-const quoteAr = document.getElementById('quoteAr');
-const quoteText = document.getElementById('quoteText');
+const quoteOrig = document.getElementById('quoteOrig');
+const quoteTrans = document.getElementById('quoteTrans');
 const quoteSrc = document.getElementById('quoteSrc');
 const quoteBar = document.getElementById('quoteBar');
 const QUOTE_TIME = 9000;
@@ -116,9 +116,13 @@ function renderQuote(animate = true) {
   const q = window.QUOTES[quoteIndex];
   const fill = () => {
     quoteCat.textContent = QUOTE_CATEGORIES[q.cat];
-    quoteAr.textContent = q.ar || '';
-    quoteText.textContent = q.en;
+    quoteOrig.textContent = q.orig.text;
+    quoteOrig.lang = q.orig.lang;
+    quoteOrig.dir = q.orig.lang === 'ar' ? 'rtl' : 'ltr';
+    quoteTrans.textContent = q.trans ? q.trans.text : '';
+    quoteTrans.lang = q.trans ? q.trans.lang : '';
     quoteSrc.textContent = q.src;
+    quoteSrc.lang = /[\u0980-\u09FF]/.test(q.src) ? 'bn' : 'en';
     quoteBody.classList.remove('is-changing');
   };
   if (animate && !reduceMotion) {
@@ -388,7 +392,10 @@ const commands = {
 
   quote: () => {
     const q = window.QUOTES[Math.floor(Math.random() * window.QUOTES.length)];
-    return [{ text: `"${q.en}"`, class: 'title' }, { text: `  — ${q.src}`, class: 'dim' }];
+    const lines = [{ text: q.orig.text.replace(/\n/g, ' '), class: 'title' }];
+    if (q.trans) lines.push({ text: q.trans.text });
+    lines.push({ text: `  — ${q.src}`, class: 'dim' });
+    return lines;
   },
 
   cv: () => {
