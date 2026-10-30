@@ -286,7 +286,7 @@ const commands = {
   contact: () => [
     { text: `Email     ${EMAIL}` },
     { text: 'Phone     +880 1580-518992' },
-    { text: 'LinkedIn  linkedin.com/in/nurul-huda-arosh-776241168' },
+    { text: 'LinkedIn  linkedin.com/in/nurulhudaarosh' },
     { text: 'GitHub    github.com/nurulhudaarosh' },
   ],
 
@@ -310,7 +310,7 @@ const commands = {
   },
 
   linkedin: () => {
-    window.open('https://linkedin.com/in/nurul-huda-arosh-776241168/', '_blank');
+    window.open('https://www.linkedin.com/in/nurulhudaarosh/', '_blank');
     return [{ text: 'Opening LinkedIn...', class: 'success' }];
   },
 

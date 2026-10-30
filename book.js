@@ -168,7 +168,7 @@
     links.innerHTML =
       '<a class="btn btn-solid" href="MD-Nurul-Huda-CV.pdf" target="_blank" rel="noopener">Download CV</a>' +
       '<a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener">GitHub ↗</a>' +
-      '<a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener">LinkedIn ↗</a>';
+      '<a href="https://www.linkedin.com/in/nurulhudaarosh/" target="_blank" rel="noopener">LinkedIn ↗</a>';
     back.append(links, el('p', 'cover-foot mono', '23.794001° N, 90.429589° E'));
     list.push({ kind: 'cover', body: back });
 
