@@ -13,8 +13,6 @@ function savePref(key, value) {
   try { localStorage.setItem(key, value); } catch (e) {}
 }
 
-const bnDigits = (s) => String(s).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
-const lang = () => (root.getAttribute('lang') === 'bn' ? 'bn' : 'en');
 
 // Navigation
 const nav = document.getElementById('nav');
@@ -72,32 +70,6 @@ themeToggle.addEventListener('click', () => {
   track('preference', { theme: next });
 });
 
-// Language (English / Bangla)
-const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
-i18nNodes.forEach(el => { el.dataset.en = el.innerHTML; });
-const enTitle = document.title;
-
-function applyLanguage(next) {
-  root.setAttribute('lang', next);
-  i18nNodes.forEach(el => {
-    const bn = window.I18N_BN[el.dataset.i18n];
-    el.innerHTML = next === 'bn' && bn ? bn : el.dataset.en;
-  });
-  document.title = next === 'bn' ? 'মো. নুরুল হুদা | পোর্টফোলিও' : enTitle;
-  const year = new Date().getFullYear();
-  document.getElementById('year').textContent = next === 'bn' ? bnDigits(year) : year;
-  updateClock();
-  renderQuote(false);
-  buildSphere();
-}
-
-document.getElementById('langToggle').addEventListener('click', () => {
-  const next = lang() === 'bn' ? 'en' : 'bn';
-  applyLanguage(next);
-  savePref('lang', next);
-  track('preference', { lang: next });
-});
-
 // View (2D / 3D)
 const viewToggle = document.getElementById('viewToggle');
 
@@ -120,12 +92,13 @@ viewToggle.addEventListener('click', () => {
 // Dhaka local time (12-hour)
 const clock = document.getElementById('clock');
 
+const timeFormat = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Dhaka' });
+
 function updateClock() {
-  const locale = lang() === 'bn' ? 'bn-BD' : 'en-US';
-  const time = new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Dhaka' }).format(new Date());
-  clock.textContent = `${window.UI_TEXT[lang()].dhaka} ${time}`;
+  clock.textContent = `Dhaka ${timeFormat.format(new Date())}`;
 }
 
+updateClock();
 setInterval(updateClock, 15000);
 
 // Quotes
@@ -136,17 +109,16 @@ const quoteText = document.getElementById('quoteText');
 const quoteSrc = document.getElementById('quoteSrc');
 const quoteBar = document.getElementById('quoteBar');
 const QUOTE_TIME = 9000;
+const QUOTE_CATEGORIES = { quran: 'Al-Quran', hadith: 'Hadith', poet: 'Poet', literature: 'Literature', philosophy: 'Philosophy' };
 let quoteIndex = Math.floor(Math.random() * window.QUOTES.length);
 
 function renderQuote(animate = true) {
   const q = window.QUOTES[quoteIndex];
-  const l = lang();
   const fill = () => {
-    quoteCat.textContent = window.UI_TEXT[l].quotes[q.cat];
+    quoteCat.textContent = QUOTE_CATEGORIES[q.cat];
     quoteAr.textContent = q.ar || '';
-    quoteText.textContent = q[l];
-    quoteText.lang = l;
-    quoteSrc.textContent = q.src[l];
+    quoteText.textContent = q.en;
+    quoteSrc.textContent = q.src;
     quoteBody.classList.remove('is-changing');
   };
   if (animate && !reduceMotion) {
@@ -355,7 +327,6 @@ const commands = {
     { text: '  email        copy my email' },
     { text: '  theme        toggle light/dark' },
     { text: '  3d / 2d      switch the page view' },
-    { text: '  bangla       switch to Bangla (english to go back)' },
     { text: '  clear        clear the screen' },
   ],
 
@@ -417,7 +388,7 @@ const commands = {
 
   quote: () => {
     const q = window.QUOTES[Math.floor(Math.random() * window.QUOTES.length)];
-    return [{ text: `"${q.en}"`, class: 'title' }, { text: `  — ${q.src.en}`, class: 'dim' }];
+    return [{ text: `"${q.en}"`, class: 'title' }, { text: `  — ${q.src}`, class: 'dim' }];
   },
 
   cv: () => {
@@ -458,18 +429,6 @@ const commands = {
   '2d': () => {
     setView('2d');
     return [{ text: 'Switched to 2D view.', class: 'success' }];
-  },
-
-  bangla: () => {
-    applyLanguage('bn');
-    savePref('lang', 'bn');
-    return [{ text: 'ভাষা বাংলায় পরিবর্তন করা হয়েছে।', class: 'success' }];
-  },
-
-  english: () => {
-    applyLanguage('en');
-    savePref('lang', 'en');
-    return [{ text: 'Language switched to English.', class: 'success' }];
   },
 
   whoami: () => [{ text: 'a curious visitor :)' }],
@@ -583,5 +542,6 @@ document.addEventListener('click', (e) => {
 });
 
 // Initial render
-applyLanguage(lang());
+renderQuote(false);
+document.getElementById('year').textContent = new Date().getFullYear();
 if (root.getAttribute('data-view') === '3d') startSphere();

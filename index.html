@@ -33,7 +33,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "MD. Nurul Huda",
-    "alternateName": ["Nurul Huda Arosh", "MD. Nurul Huda Arosh", "Arosh", "মো. নুরুল হুদা"],
+    "alternateName": ["Nurul Huda Arosh", "MD. Nurul Huda Arosh", "Arosh"],
     "url": "https://nurulhudaarosh.github.io/",
     "image": "https://nurulhudaarosh.github.io/assets/profile.jpg",
     "jobTitle": "Computer Science and Engineering Graduate",
@@ -54,7 +54,7 @@
   }
   </script>
   <script>
-    // Apply saved preferences (or ?lang= / ?view= / ?theme= from the URL) before first paint
+    // Apply saved preferences (or ?view= / ?theme= from the URL) before first paint
     (function () {
       var root = document.documentElement, params = new URLSearchParams(location.search);
       function pref(key, allowed) {
@@ -63,10 +63,8 @@
         return allowed.indexOf(v) === -1 ? null : v;
       }
       var theme = pref('theme', ['light', 'dark']);
-      var lang = pref('lang', ['en', 'bn']);
       var view = pref('view', ['2d', '3d']);
       if (theme) root.setAttribute('data-theme', theme);
-      if (lang) root.setAttribute('lang', lang);
       root.setAttribute('data-view', view || '2d');
     })();
   </script>
@@ -80,32 +78,29 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Galada&family=Hind+Siliguri:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a href="#main" class="skip-link" data-i18n="skip">Skip to content</a>
+  <a href="#main" class="skip-link">Skip to content</a>
 
   <header class="nav" id="nav">
     <div class="nav-inner">
       <a href="#top" class="brand" aria-label="Back to top">
         <span class="brand-mark">NH</span>
-        <span class="brand-name" data-i18n="brand">Nurul Huda</span>
+        <span class="brand-name">Nurul Huda</span>
       </a>
       <nav aria-label="Primary">
         <ul class="nav-links" id="navLinks">
-          <li><a href="#about" data-i18n="nav.about">About</a></li>
-          <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
-          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
-          <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
-          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
       <div class="nav-tools">
         <span class="clock mono" id="clock" title="Local time in Dhaka"></span>
-        <button class="pill-btn" id="langToggle" aria-label="বাংলায় দেখুন / View in English">
-          <span class="when-en" lang="bn">বাং</span><span class="when-bn" lang="en">EN</span>
-        </button>
         <button class="pill-btn" id="viewToggle" aria-label="Switch between 2D and 3D view">
           <span class="when-2d">3D</span><span class="when-3d">2D</span>
         </button>
@@ -126,23 +121,23 @@
       <div class="floor" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow mono"><span class="dot"></span> <span data-i18n="hero.eyebrow">B.Sc. in CSE, United International University · Class of 2026</span></p>
+          <p class="eyebrow mono"><span class="dot"></span> <span>B.Sc. in CSE, United International University · Class of 2026</span></p>
           <h1 class="hero-title">
-            <span class="hero-name" data-i18n="hero.name">MD. Nurul Huda</span>
-            <span class="hero-sub" data-i18n="hero.sub">builds <em>useful</em> software — from IoT rovers to AI agents.</span>
+            <span class="hero-name">MD. Nurul Huda</span>
+            <span class="hero-sub">builds <em>useful</em> software — from IoT rovers to AI agents.</span>
           </h1>
-          <p class="hero-lead" data-i18n="hero.lead">Computer Science &amp; Engineering graduate from UIU, former undergraduate teaching assistant and team lead. I work across full stack web, embedded systems and LLM-based agents.</p>
+          <p class="hero-lead">Computer Science &amp; Engineering graduate from UIU, former undergraduate teaching assistant and team lead. I work across full stack web, embedded systems and LLM-based agents.</p>
           <div class="hero-actions">
             <a href="MD-Nurul-Huda-CV.pdf" target="_blank" rel="noopener" class="btn btn-solid">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
-              <span data-i18n="hero.cv">Download CV</span>
+              <span>Download CV</span>
             </a>
-            <a href="#contact" class="btn btn-line" data-i18n="hero.contact">Get in touch</a>
+            <a href="#contact" class="btn btn-line">Get in touch</a>
           </div>
           <ul class="hero-social" aria-label="Profiles">
             <li><a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener">GitHub ↗</a></li>
             <li><a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
-            <li><a href="mailto:mhuda223303@bscse.uiu.ac.bd" data-i18n="hero.email">Email ↗</a></li>
+            <li><a href="mailto:mhuda223303@bscse.uiu.ac.bd">Email ↗</a></li>
           </ul>
         </div>
 
@@ -154,7 +149,7 @@
             </picture>
             <span class="glare" aria-hidden="true"></span>
           </div>
-          <p class="hello hand" aria-hidden="true"><span data-i18n="hero.hello">hi, that's me!</span> <svg viewBox="0 0 40 24"><path d="M38 4C26 2 12 6 4 18m0 0 1-8m-1 8 8-2"/></svg></p>
+          <p class="hello hand" aria-hidden="true"><span>hi, that's me!</span> <svg viewBox="0 0 40 24"><path d="M38 4C26 2 12 6 4 18m0 0 1-8m-1 8 8-2"/></svg></p>
           <figcaption class="mono">
             <a href="https://www.google.com/maps?q=23.794001,90.429589" target="_blank" rel="noopener" class="coords" title="Open in Google Maps">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
@@ -183,10 +178,10 @@
 
       <div class="container">
         <dl class="stats">
-          <div class="tilt"><dt data-i18n="stats.cgpa">CGPA</dt><dd data-i18n="stats.cgpaVal">3.81</dd></div>
-          <div class="tilt"><dt data-i18n="stats.projects">Projects shipped</dt><dd data-i18n="stats.projectsVal">9+</dd></div>
-          <div class="tilt"><dt data-i18n="stats.awards">Project-show awards</dt><dd data-i18n="stats.awardsVal">2</dd></div>
-          <div class="tilt"><dt data-i18n="stats.teams">Teams led</dt><dd data-i18n="stats.teamsVal">3</dd></div>
+          <div class="tilt"><dt>CGPA</dt><dd>3.81</dd></div>
+          <div class="tilt"><dt>Projects shipped</dt><dd>9+</dd></div>
+          <div class="tilt"><dt>Project-show awards</dt><dd>2</dd></div>
+          <div class="tilt"><dt>Teams led</dt><dd>3</dd></div>
         </dl>
       </div>
     </section>
@@ -195,32 +190,32 @@
     <section class="section" id="about">
       <div class="container">
         <header class="section-head">
-          <span class="section-num mono" data-i18n="num.1">01</span>
-          <h2 data-i18n="about.title">About</h2>
+          <span class="section-num mono">01</span>
+          <h2>About</h2>
         </header>
         <div class="about-grid">
           <div class="about-text">
-            <p class="lede" data-i18n="about.lede">I recently completed my B.Sc. in Computer Science &amp; Engineering at United International University. I enjoy turning ideas into working systems — and leading the teams that build them.</p>
-            <p data-i18n="about.p1">I've led teams building an IoT precision-agriculture rover, a university social platform and an award-winning desktop productivity app. I was an undergraduate teaching assistant for Advanced Object Oriented Programming, and I serve as a Senior Executive at the UIU Robotics Club.</p>
-            <p data-i18n="about.p2">Right now I'm most interested in reliable LLM agents, energy-efficient code and practical full stack products.</p>
+            <p class="lede">I recently completed my B.Sc. in Computer Science &amp; Engineering at United International University. I enjoy turning ideas into working systems — and leading the teams that build them.</p>
+            <p>I've led teams building an IoT precision-agriculture rover, a university social platform and an award-winning desktop productivity app. I was an undergraduate teaching assistant for Advanced Object Oriented Programming, and I serve as a Senior Executive at the UIU Robotics Club.</p>
+            <p>Right now I'm most interested in reliable LLM agents, energy-efficient code and practical full stack products.</p>
           </div>
           <div class="edu">
-            <h3 class="label mono" data-i18n="about.education">Education</h3>
+            <h3 class="label mono">Education</h3>
             <article class="edu-item">
               <div class="edu-top">
-                <h4 data-i18n="edu.uiu">United International University</h4>
-                <span class="mono muted" data-i18n="edu.uiuDate">Oct 2026</span>
+                <h4>United International University</h4>
+                <span class="mono muted">Oct 2026</span>
               </div>
-              <p data-i18n="edu.uiuDegree">B.Sc. in Computer Science and Engineering</p>
-              <p class="muted" data-i18n="edu.uiuMeta">CGPA 3.81 (provisional) · Completed October 2026</p>
+              <p>B.Sc. in Computer Science and Engineering</p>
+              <p class="muted">CGPA 3.81 (provisional) · Completed October 2026</p>
             </article>
             <article class="edu-item">
               <div class="edu-top">
-                <h4 data-i18n="edu.hsc">Mosjid Mission Academy School and College</h4>
-                <span class="mono muted" data-i18n="edu.hscDate">2021</span>
+                <h4>Mosjid Mission Academy School and College</h4>
+                <span class="mono muted">2021</span>
               </div>
-              <p data-i18n="edu.hscDegree">H.S.C. (Science)</p>
-              <p class="muted" data-i18n="edu.hscMeta">GPA 5.00</p>
+              <p>H.S.C. (Science)</p>
+              <p class="muted">GPA 5.00</p>
             </article>
           </div>
         </div>
@@ -231,73 +226,73 @@
     <section class="section" id="experience">
       <div class="container">
         <header class="section-head">
-          <span class="section-num mono" data-i18n="num.2">02</span>
-          <h2 data-i18n="xp.title">Experience &amp; Leadership</h2>
+          <span class="section-num mono">02</span>
+          <h2>Experience &amp; Leadership</h2>
         </header>
         <ol class="xp">
           <li class="xp-item">
-            <span class="xp-date mono" data-i18n="xp.1.date">2025 — 2026</span>
+            <span class="xp-date mono">2025 — 2026</span>
             <div>
-              <h3 data-i18n="xp.1.title">Senior Executive <span class="at">· UIU Robotics Club</span></h3>
-              <p data-i18n="xp.1.desc">Event Management &amp; Logistics wing, Core Committee 2025–2026.</p>
-              <a href="https://robotics.uiu.ac.bd/committee-members/md-nurul-huda" target="_blank" rel="noopener" class="text-link" data-i18n="xp.1.link">Club profile ↗</a>
+              <h3>Senior Executive <span class="at">· UIU Robotics Club</span></h3>
+              <p>Event Management &amp; Logistics wing, Core Committee 2025–2026.</p>
+              <a href="https://robotics.uiu.ac.bd/committee-members/md-nurul-huda" target="_blank" rel="noopener" class="text-link">Club profile ↗</a>
             </div>
           </li>
           <li class="xp-item">
-            <span class="xp-date mono" data-i18n="xp.2.date">Summer 2025</span>
+            <span class="xp-date mono">Summer 2025</span>
             <div>
-              <h3 data-i18n="xp.2.title">Undergraduate Teaching Assistant <span class="at">· UIU</span></h3>
-              <p data-i18n="xp.2.desc">Course: Advanced Object Oriented Programming.</p>
+              <h3>Undergraduate Teaching Assistant <span class="at">· UIU</span></h3>
+              <p>Course: Advanced Object Oriented Programming.</p>
             </div>
           </li>
           <li class="xp-item">
-            <span class="xp-date mono" data-i18n="y.2025">2025</span>
+            <span class="xp-date mono">2025</span>
             <div>
-              <h3 data-i18n="xp.3.title">Volunteer <span class="at">· UIU CSE Fest 2025</span></h3>
-              <p data-i18n="xp.3.desc">Assisted in managing and coordinating technical events.</p>
+              <h3>Volunteer <span class="at">· UIU CSE Fest 2025</span></h3>
+              <p>Assisted in managing and coordinating technical events.</p>
             </div>
           </li>
           <li class="xp-item">
-            <span class="xp-date mono" data-i18n="y.2025">2025</span>
+            <span class="xp-date mono">2025</span>
             <div>
-              <h3 data-i18n="xp.4.title">Team Leader <span class="at">· Segmentation Fault (SPAK)</span></h3>
-              <p data-i18n="xp.4.desc">Managed a 6-member team building an IoT rover; integrated hardware, software and UI components.</p>
+              <h3>Team Leader <span class="at">· Segmentation Fault (SPAK)</span></h3>
+              <p>Managed a 6-member team building an IoT rover; integrated hardware, software and UI components.</p>
             </div>
           </li>
           <li class="xp-item">
-            <span class="xp-date mono" data-i18n="y.2025">2025</span>
+            <span class="xp-date mono">2025</span>
             <div>
-              <h3 data-i18n="xp.5.title">Team Leader <span class="at">· UniHub</span></h3>
-              <p data-i18n="xp.5.desc">Led design and development of a university-based social platform.</p>
+              <h3>Team Leader <span class="at">· UniHub</span></h3>
+              <p>Led design and development of a university-based social platform.</p>
             </div>
           </li>
           <li class="xp-item">
-            <span class="xp-date mono" data-i18n="y.2023">2023</span>
+            <span class="xp-date mono">2023</span>
             <div>
-              <h3 data-i18n="xp.6.title">Team Leader <span class="at">· Self Management System</span></h3>
-              <p data-i18n="xp.6.desc">Coordinated design and features for a productivity-focused desktop app.</p>
+              <h3>Team Leader <span class="at">· Self Management System</span></h3>
+              <p>Coordinated design and features for a productivity-focused desktop app.</p>
             </div>
           </li>
         </ol>
 
-        <h3 class="label mono sub-label" data-i18n="xp.achievements">Achievements</h3>
+        <h3 class="label mono sub-label">Achievements</h3>
         <div class="awards">
           <article class="award tilt">
-            <span class="award-rank" data-i18n="award.1.rank">Champion</span>
+            <span class="award-rank">Champion</span>
             <h4>Aegis</h4>
-            <p data-i18n="award.1.desc">CSE Project Show, Summer 2025 · Software Engineering Lab</p>
+            <p>CSE Project Show, Summer 2025 · Software Engineering Lab</p>
             <span class="glare" aria-hidden="true"></span>
           </article>
           <article class="award tilt">
-            <span class="award-rank" data-i18n="award.2.rank">3rd Runner-Up</span>
+            <span class="award-rank">3rd Runner-Up</span>
             <h4>Self Management System</h4>
-            <p data-i18n="award.2.desc">CSE Project Show, Fall 2023 · AOOP Lab</p>
+            <p>CSE Project Show, Fall 2023 · AOOP Lab</p>
             <span class="glare" aria-hidden="true"></span>
           </article>
           <article class="award tilt">
-            <span class="award-rank" data-i18n="award.3.rank">GPA 5.00</span>
-            <h4 data-i18n="award.3.title">Higher Secondary Certificate</h4>
-            <p data-i18n="award.3.desc">Science, 2021</p>
+            <span class="award-rank">GPA 5.00</span>
+            <h4>Higher Secondary Certificate</h4>
+            <p>Science, 2021</p>
             <span class="glare" aria-hidden="true"></span>
           </article>
         </div>
@@ -308,126 +303,126 @@
     <section class="section" id="projects">
       <div class="container">
         <header class="section-head">
-          <span class="section-num mono" data-i18n="num.3">03</span>
-          <h2 data-i18n="projects.title">Selected Projects</h2>
-          <a href="https://github.com/nurulhudaarosh?tab=repositories" target="_blank" rel="noopener" class="text-link head-link" data-i18n="projects.all">All repositories ↗</a>
+          <span class="section-num mono">03</span>
+          <h2>Selected Projects</h2>
+          <a href="https://github.com/nurulhudaarosh?tab=repositories" target="_blank" rel="noopener" class="text-link head-link">All repositories ↗</a>
         </header>
 
         <div class="filters" role="group" aria-label="Filter projects">
-          <button class="chip is-active" data-filter="all" data-i18n="filter.all">All</button>
-          <button class="chip" data-filter="ai" data-i18n="filter.ai">AI &amp; Research</button>
-          <button class="chip" data-filter="web" data-i18n="filter.web">Web</button>
+          <button class="chip is-active" data-filter="all">All</button>
+          <button class="chip" data-filter="ai">AI &amp; Research</button>
+          <button class="chip" data-filter="web">Web</button>
           <button class="chip" data-filter="iot">IoT</button>
-          <button class="chip" data-filter="desktop" data-i18n="filter.desktop">Desktop &amp; CLI</button>
+          <button class="chip" data-filter="desktop">Desktop &amp; CLI</button>
         </div>
 
         <div class="projects">
           <article class="project project-feature tilt" data-tags="ai">
-            <div class="project-meta mono"><span data-i18n="num.p1">01</span><span data-i18n="p1.meta">AI · Research</span></div>
+            <div class="project-meta mono"><span>01</span><span>AI · Research</span></div>
             <h3>Agentic Trade</h3>
-            <p class="project-tagline" data-i18n="p1.tag">Remember, Verify, Act — a self-correcting agent memory for LLM trading agents.</p>
-            <p data-i18n="p1.desc">One-year point-in-time study against FinMem, plus a bilingual (English/Bangla) trading and analysis app with a guarded autopilot on Alpaca paper trading.</p>
+            <p class="project-tagline">Remember, Verify, Act — a self-correcting agent memory for LLM trading agents.</p>
+            <p>One-year point-in-time study against FinMem, plus a bilingual (English/Bangla) trading and analysis app with a guarded autopilot on Alpaca paper trading.</p>
             <ul class="tags"><li>Python</li><li>LLM Agents</li><li>Alpaca API</li><li>JavaScript</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/Agentic_trade" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/Agentic_trade" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="web">
-            <div class="project-meta mono"><span data-i18n="num.p2">02</span><span class="badge" data-i18n="badge.champion">🏆 Champion</span></div>
+            <div class="project-meta mono"><span>02</span><span class="badge">🏆 Champion</span></div>
             <h3>Aegis</h3>
-            <p class="project-tagline" data-i18n="p2.tag">Emergency reporting and response platform.</p>
-            <p data-i18n="p2.desc">Civilians report incidents with location and media; officials manage cases, evidence and reports. Role-based REST API. Champion, CSE Project Show Summer 2025.</p>
+            <p class="project-tagline">Emergency reporting and response platform.</p>
+            <p>Civilians report incidents with location and media; officials manage cases, evidence and reports. Role-based REST API. Champion, CSE Project Show Summer 2025.</p>
             <ul class="tags"><li>Django</li><li>DRF</li><li>REST API</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/aegis_backend" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/aegis_backend" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="ai">
-            <div class="project-meta mono"><span data-i18n="num.p3">03</span><span data-i18n="p3.meta">Research</span></div>
+            <div class="project-meta mono"><span>03</span><span>Research</span></div>
             <h3>Green Code Interaction Benchmark</h3>
-            <p class="project-tagline" data-i18n="p3.tag">How energy-efficient is AI-generated code?</p>
-            <p data-i18n="p3.desc">Experimental framework evaluating energy efficiency of AI-generated code under one-shot and realistic multi-turn interactions across multiple models.</p>
+            <p class="project-tagline">How energy-efficient is AI-generated code?</p>
+            <p>Experimental framework evaluating energy efficiency of AI-generated code under one-shot and realistic multi-turn interactions across multiple models.</p>
             <ul class="tags"><li>Python</li><li>Jupyter</li><li>LaTeX</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/green-code-interaction-benchmark" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/green-code-interaction-benchmark" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="iot">
-            <div class="project-meta mono"><span data-i18n="num.p4">04</span><span data-i18n="p4.meta">IoT · Team Lead</span></div>
+            <div class="project-meta mono"><span>04</span><span>IoT · Team Lead</span></div>
             <h3>SPAK — Smart Precision Agricultural Kit</h3>
-            <p class="project-tagline" data-i18n="p4.tag">Modular rover for precision agriculture.</p>
-            <p data-i18n="p4.desc">ESP32-based control over Modbus RTU with NPK sensing and real-time soil data, plus a dashboard for module status and sensor values.</p>
+            <p class="project-tagline">Modular rover for precision agriculture.</p>
+            <p>ESP32-based control over Modbus RTU with NPK sensing and real-time soil data, plus a dashboard for module status and sensor values.</p>
             <ul class="tags"><li>ESP32</li><li>Modbus RTU</li><li>NPK Sensor</li><li>Dashboard</li></ul>
             <div class="project-links">
-              <a href="https://spak-dashboard-plum.vercel.app" target="_blank" rel="noopener" class="text-link" data-i18n="link.demo">Live demo ↗</a>
-              <a href="https://github.com/nurulhudaarosh/spak-dashboard" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://spak-dashboard-plum.vercel.app" target="_blank" rel="noopener" class="text-link">Live demo ↗</a>
+              <a href="https://github.com/nurulhudaarosh/spak-dashboard" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="web">
-            <div class="project-meta mono"><span data-i18n="num.p5">05</span><span data-i18n="p5.meta">Web · Team Lead</span></div>
+            <div class="project-meta mono"><span>05</span><span>Web · Team Lead</span></div>
             <h3>UniHub</h3>
-            <p class="project-tagline" data-i18n="p5.tag">Social platform for a university community.</p>
-            <p data-i18n="p5.desc">Role-based access for students, alumni and faculty, with local/national feeds and academic modules.</p>
+            <p class="project-tagline">Social platform for a university community.</p>
+            <p>Role-based access for students, alumni and faculty, with local/national feeds and academic modules.</p>
             <ul class="tags"><li>Express.js</li><li>MySQL</li><li>Tailwind</li><li>JavaScript</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/UniHub" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/UniHub" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="web">
-            <div class="project-meta mono"><span data-i18n="num.p6">06</span><span>PWA</span></div>
+            <div class="project-meta mono"><span>06</span><span>PWA</span></div>
             <h3>Hisab Nikash Pro</h3>
-            <p class="project-tagline" data-i18n="p6.tag">Offline-first personal finance app.</p>
-            <p data-i18n="p6.desc">Daily expense limits, a lend/borrow ledger, quick notes and background cloud sync — works without a connection.</p>
+            <p class="project-tagline">Offline-first personal finance app.</p>
+            <p>Daily expense limits, a lend/borrow ledger, quick notes and background cloud sync — works without a connection.</p>
             <ul class="tags"><li>TypeScript</li><li>PWA</li><li>Offline Sync</li></ul>
             <div class="project-links">
-              <a href="https://hisab-nikash-pro-six.vercel.app" target="_blank" rel="noopener" class="text-link" data-i18n="link.demo">Live demo ↗</a>
-              <a href="https://github.com/nurulhudaarosh/Hisab-Nikash-Pro" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://hisab-nikash-pro-six.vercel.app" target="_blank" rel="noopener" class="text-link">Live demo ↗</a>
+              <a href="https://github.com/nurulhudaarosh/Hisab-Nikash-Pro" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="desktop">
-            <div class="project-meta mono"><span data-i18n="num.p7">07</span><span class="badge" data-i18n="badge.runnerup">🏆 3rd Runner-Up</span></div>
+            <div class="project-meta mono"><span>07</span><span class="badge">🏆 3rd Runner-Up</span></div>
             <h3>Self Management System</h3>
-            <p class="project-tagline" data-i18n="p7.tag">Personal dashboard for tasks, notes and goals.</p>
-            <p data-i18n="p7.desc">JavaFX desktop app built on OOP principles. 3rd Runner-Up at the UIU CSE Project Show, Fall 2023.</p>
+            <p class="project-tagline">Personal dashboard for tasks, notes and goals.</p>
+            <p>JavaFX desktop app built on OOP principles. 3rd Runner-Up at the UIU CSE Project Show, Fall 2023.</p>
             <ul class="tags"><li>Java</li><li>JavaFX</li><li>OOP</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/Self_Management" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/Self_Management" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="desktop">
-            <div class="project-meta mono"><span data-i18n="num.p8">08</span><span data-i18n="p8.meta">Desktop</span></div>
+            <div class="project-meta mono"><span>08</span><span>Desktop</span></div>
             <h3>IPTV Player</h3>
-            <p class="project-tagline" data-i18n="p8.tag">Lightweight cross-platform streaming player.</p>
-            <p data-i18n="p8.desc">Streams M3U/M3U8 playlists on Windows, Linux and macOS with a clean, fast interface.</p>
+            <p class="project-tagline">Lightweight cross-platform streaming player.</p>
+            <p>Streams M3U/M3U8 playlists on Windows, Linux and macOS with a clean, fast interface.</p>
             <ul class="tags"><li>Tauri</li><li>Rust</li><li>React</li><li>TypeScript</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/iptv-player" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/iptv-player" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
 
           <article class="project tilt" data-tags="desktop">
-            <div class="project-meta mono"><span data-i18n="num.p9">09</span><span>CLI</span></div>
+            <div class="project-meta mono"><span>09</span><span>CLI</span></div>
             <h3>CLI Download Manager</h3>
-            <p class="project-tagline" data-i18n="p9.tag">Terminal UI for files and YouTube downloads.</p>
-            <p data-i18n="p9.desc">Progress tracking, pause/resume and download history in a keyboard-driven TUI.</p>
+            <p class="project-tagline">Terminal UI for files and YouTube downloads.</p>
+            <p>Progress tracking, pause/resume and download history in a keyboard-driven TUI.</p>
             <ul class="tags"><li>Python</li><li>Textual</li></ul>
             <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/cli_download_manager" target="_blank" rel="noopener" class="text-link" data-i18n="link.source">Source ↗</a>
+              <a href="https://github.com/nurulhudaarosh/cli_download_manager" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
             <span class="glare" aria-hidden="true"></span>
           </article>
@@ -439,28 +434,28 @@
     <section class="section" id="skills">
       <div class="container">
         <header class="section-head">
-          <span class="section-num mono" data-i18n="num.4">04</span>
-          <h2 data-i18n="skills.title">Skills &amp; Tools</h2>
+          <span class="section-num mono">04</span>
+          <h2>Skills &amp; Tools</h2>
         </header>
 
         <div class="sphere-wrap" aria-hidden="true">
           <div class="sphere" id="sphere"></div>
-          <p class="sphere-hint mono" data-i18n="skills.drag">Drag to spin</p>
+          <p class="sphere-hint mono">Drag to spin</p>
         </div>
 
         <div class="skills">
-          <div class="skill-row"><h3 class="mono" data-i18n="skills.languages">Languages</h3><ul class="tags"><li>C</li><li>C++</li><li>Python</li><li>JavaScript</li><li>TypeScript</li><li>Java</li><li>SQL</li></ul></div>
-          <div class="skill-row"><h3 class="mono" data-i18n="skills.web">Web</h3><ul class="tags"><li>HTML</li><li>CSS</li><li>Tailwind CSS</li><li>React</li><li>Node.js</li><li>Express.js</li><li>Django</li></ul></div>
-          <div class="skill-row"><h3 class="mono" data-i18n="skills.db">Database</h3><ul class="tags"><li>MySQL</li><li>SQLite</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Languages</h3><ul class="tags"><li>C</li><li>C++</li><li>Python</li><li>JavaScript</li><li>TypeScript</li><li>Java</li><li>SQL</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Web</h3><ul class="tags"><li>HTML</li><li>CSS</li><li>Tailwind CSS</li><li>React</li><li>Node.js</li><li>Express.js</li><li>Django</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Database</h3><ul class="tags"><li>MySQL</li><li>SQLite</li></ul></div>
           <div class="skill-row"><h3 class="mono">IoT</h3><ul class="tags"><li>ESP32</li><li>Arduino</li><li>Raspberry Pi</li><li>Modbus RTU</li></ul></div>
-          <div class="skill-row"><h3 class="mono" data-i18n="skills.tools">Tools</h3><ul class="tags"><li>Git</li><li>Docker</li><li>VS Code</li><li>LaTeX</li><li>Tauri</li></ul></div>
-          <div class="skill-row"><h3 class="mono" data-i18n="skills.os">OS</h3><ul class="tags"><li>Linux — Fedora, Ubuntu, Arch</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Tools</h3><ul class="tags"><li>Git</li><li>Docker</li><li>VS Code</li><li>LaTeX</li><li>Tauri</li></ul></div>
+          <div class="skill-row"><h3 class="mono">OS</h3><ul class="tags"><li>Linux — Fedora, Ubuntu, Arch</li></ul></div>
         </div>
 
         <div class="console">
           <div class="console-copy">
-            <h3 data-i18n="console.title">Prefer the command line?</h3>
-            <p data-i18n="console.desc">Explore this portfolio from a tiny terminal. Try <code>help</code>, <code>projects</code> or <code>cv</code>. Use ↑/↓ for history and Tab to autocomplete.</p>
+            <h3>Prefer the command line?</h3>
+            <p>Explore this portfolio from a tiny terminal. Try <code>help</code>, <code>projects</code> or <code>cv</code>. Use ↑/↓ for history and Tab to autocomplete.</p>
           </div>
           <div class="terminal tilt" id="terminal">
             <div class="terminal-bar">
@@ -485,35 +480,35 @@
     <section class="section contact" id="contact">
       <div class="container">
         <header class="section-head">
-          <span class="section-num mono" data-i18n="num.5">05</span>
-          <h2 data-i18n="contact.title">Contact</h2>
+          <span class="section-num mono">05</span>
+          <h2>Contact</h2>
         </header>
         <div class="contact-grid">
           <div>
-            <p class="contact-big" data-i18n="contact.big">Hiring, collaborating or building something? <em>Let's talk.</em></p>
+            <p class="contact-big">Hiring, collaborating or building something? <em>Let's talk.</em></p>
             <a class="contact-email" href="mailto:mhuda223303@bscse.uiu.ac.bd">mhuda223303@bscse.uiu.ac.bd</a>
             <ul class="contact-list">
-              <li><span class="mono muted" data-i18n="contact.phone">Phone</span><a href="tel:+8801580518992">+880 1580-518992</a></li>
+              <li><span class="mono muted">Phone</span><a href="tel:+8801580518992">+880 1580-518992</a></li>
               <li><span class="mono muted">LinkedIn</span><a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener">nurul-huda-arosh ↗</a></li>
               <li><span class="mono muted">GitHub</span><a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener">nurulhudaarosh ↗</a></li>
-              <li><span class="mono muted" data-i18n="contact.location">Location</span><span data-i18n="contact.locationVal">Vatara, Dhaka, Bangladesh</span></li>
+              <li><span class="mono muted">Location</span><span>Vatara, Dhaka, Bangladesh</span></li>
             </ul>
           </div>
           <form class="form tilt" id="contactForm">
             <label class="field">
-              <span class="mono" data-i18n="form.name">Name</span>
+              <span class="mono">Name</span>
               <input type="text" id="name" name="name" autocomplete="name" required>
             </label>
             <label class="field">
-              <span class="mono" data-i18n="form.email">Email</span>
+              <span class="mono">Email</span>
               <input type="email" id="email" name="email" autocomplete="email" required>
             </label>
             <label class="field">
-              <span class="mono" data-i18n="form.message">Message</span>
+              <span class="mono">Message</span>
               <textarea id="message" name="message" rows="5" required></textarea>
             </label>
-            <button type="submit" class="btn btn-solid" data-i18n="form.send">Send message →</button>
-            <p class="form-note muted" data-i18n="form.note">Opens your email app with the message ready to send.</p>
+            <button type="submit" class="btn btn-solid">Send message →</button>
+            <p class="form-note muted">Opens your email app with the message ready to send.</p>
           </form>
         </div>
       </div>
@@ -522,13 +517,13 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>&copy; <span id="year">2026</span> <span data-i18n="footer.name">MD. Nurul Huda</span></p>
-      <p class="mono muted" data-i18n="footer.note">Hand-built with HTML, CSS &amp; JS · Hosted on GitHub Pages</p>
-      <a href="#top" class="text-link" data-i18n="footer.top">Back to top ↑</a>
+      <p>&copy; <span id="year">2026</span> <span>MD. Nurul Huda</span></p>
+      <p class="mono muted">Hand-built with HTML, CSS &amp; JS · Hosted on GitHub Pages</p>
+      <a href="#top" class="text-link">Back to top ↑</a>
     </div>
   </footer>
 
-  <script src="i18n.js"></script>
+  <script src="quotes.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

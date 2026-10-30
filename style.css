@@ -15,10 +15,10 @@
   --grid: rgba(22, 23, 26, 0.045);
   --shadow: 0 1px 2px rgba(22, 23, 26, 0.04), 0 8px 24px -12px rgba(22, 23, 26, 0.12);
 
-  --serif: 'Fraunces', 'Tiro Bangla', Georgia, serif;
-  --sans: 'Bricolage Grotesque', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', 'Hind Siliguri', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --hand: 'Caveat', 'Galada', cursive;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --hand: 'Caveat', cursive;
   --arabic: 'Amiri', 'Times New Roman', serif;
   --display-axes: 'SOFT' 100, 'WONK' 1;
 
@@ -640,11 +640,6 @@ textarea:focus-visible {
   transform: rotate(-6deg);
 }
 
-:root[lang="bn"] .hello {
-  font-size: 1.2rem;
-  line-height: 1.4;
-}
-
 .hello svg {
   width: 40px;
   height: 24px;
@@ -694,12 +689,6 @@ textarea:focus-visible {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-}
-
-:root[lang="bn"] .quote-cat {
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 0.78rem;
 }
 
 .quote-nav {
@@ -754,11 +743,6 @@ textarea:focus-visible {
   font-size: 1.22rem;
   line-height: 1.38;
   font-variation-settings: var(--display-axes);
-}
-
-:root[lang="bn"] .quote-text {
-  font-style: normal;
-  line-height: 1.6;
 }
 
 .quote-src {
@@ -819,13 +803,6 @@ textarea:focus-visible {
   border-color: var(--ink);
 }
 
-#langToggle .when-en {
-  font-family: 'Hind Siliguri', var(--sans);
-  font-size: 0.9rem;
-}
-
-:root[lang="bn"] .when-en,
-:root:not([lang="bn"]) .when-bn,
 :root[data-view="3d"] .when-2d,
 :root:not([data-view="3d"]) .when-3d {
   display: none;
@@ -1607,36 +1584,6 @@ textarea:focus-visible {
     opacity: 1;
     transform: none;
   }
-}
-
-/* ==========================================================================
-   Bangla typography
-   ========================================================================== */
-:root[lang="bn"] body {
-  line-height: 1.8;
-}
-
-:root[lang="bn"] .label,
-:root[lang="bn"] .stats dt,
-:root[lang="bn"] .skill-row h3,
-:root[lang="bn"] .field span {
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 0.86rem;
-}
-
-:root[lang="bn"] .hero-name {
-  font-size: clamp(2.6rem, 6.4vw, 4.4rem);
-  line-height: 1.2;
-  letter-spacing: 0;
-}
-
-:root[lang="bn"] .hero-sub,
-:root[lang="bn"] .section-head h2,
-:root[lang="bn"] .contact-big,
-:root[lang="bn"] .about-text .lede {
-  letter-spacing: 0;
-  line-height: 1.35;
 }
 
 /* ==========================================================================
