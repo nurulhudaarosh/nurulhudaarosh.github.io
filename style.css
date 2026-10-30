@@ -504,6 +504,47 @@ textarea:focus-visible {
   font-variation-settings: var(--display-axes);
 }
 
+.hero-name {
+  position: relative;
+}
+
+.ip-tag {
+  position: absolute;
+  left: 100%;
+  top: 0.3em;
+  margin-left: 0.7em;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (min-width: 861px) {
+  .hero-name {
+    width: max-content;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 860px) {
+  .ip-tag {
+    position: static;
+    display: inline-block;
+    margin: 12px 0 0;
+    vertical-align: middle;
+  }
+
+  .hero-name .ip-tag {
+    display: table;
+  }
+}
+
 .hero-sub {
   display: block;
   margin-top: 16px;
