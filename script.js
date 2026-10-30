@@ -48,7 +48,8 @@ const navAnchors = Array.from(navLinks.querySelectorAll('a'));
 const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
-    navAnchors.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${entry.target.id}`));
+    const id = entry.target.dataset.nav || entry.target.id;
+    navAnchors.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
   });
 }, { rootMargin: '-45% 0px -50% 0px' });
 
@@ -179,9 +180,34 @@ filterButtons.forEach(button => {
       project.classList.toggle('is-hidden', !show);
       if (show) project.classList.add('is-visible');
     });
+    projectList.scrollTo({ left: 0 });
+    updateCarousel();
     track('project_filter', { filter });
   });
 });
+
+// Projects carousel (desktop): one screen tall, scroll sideways
+const projectList = document.querySelector('.projects');
+const projPrev = document.getElementById('projPrev');
+const projNext = document.getElementById('projNext');
+
+function updateCarousel() {
+  const max = projectList.scrollWidth - projectList.clientWidth;
+  projPrev.disabled = projectList.scrollLeft <= 4;
+  projNext.disabled = projectList.scrollLeft >= max - 4;
+}
+
+function stepCarousel(dir) {
+  const card = projectList.querySelector('.project:not(.is-hidden)');
+  const gap = parseFloat(getComputedStyle(projectList).columnGap) || 16;
+  projectList.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: reduceMotion ? 'auto' : 'smooth' });
+}
+
+projPrev.addEventListener('click', () => stepCarousel(-1));
+projNext.addEventListener('click', () => stepCarousel(1));
+projectList.addEventListener('scroll', updateCarousel, { passive: true });
+window.addEventListener('resize', updateCarousel);
+updateCarousel();
 
 // Terminal
 const terminalBody = document.getElementById('terminalBody');

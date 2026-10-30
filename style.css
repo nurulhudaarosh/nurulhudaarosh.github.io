@@ -1018,6 +1018,7 @@ textarea:focus-visible {
 }
 
 .awards {
+  counter-reset: award;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
@@ -2114,7 +2115,7 @@ body::before {
 }
 
 .book .field textarea {
-  height: 110px;
+  height: 100px;
 }
 
 .book .tags li,
@@ -2925,4 +2926,208 @@ mark {
 
 .book .xp-now {
   font-size: 0.56rem;
+}
+
+#achievements { --sec: var(--c-exp); }
+#console { --sec: var(--c-skills); }
+
+.console-copy p {
+  margin-top: 0;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.carousel-nav {
+  display: none;
+}
+
+/* ==========================================================================
+   Desktop: every section is one screen tall
+   ========================================================================== */
+@media (min-width: 861px) {
+  html {
+    scroll-padding-top: 0;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: calc(64px + 4vh) 0 5vh;
+  }
+
+  .section > .container {
+    width: 100%;
+  }
+
+  .section-head {
+    margin-bottom: clamp(24px, 5vh, 56px);
+  }
+
+  /* Experience: two timeline columns */
+  main .xp {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+    column-gap: 56px;
+  }
+
+  main .xp-item {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  main .xp-body {
+    padding-bottom: clamp(18px, 3.4vh, 34px);
+  }
+
+  main .xp-item:nth-child(3) .xp-body,
+  main .xp-item:nth-child(6) .xp-body {
+    padding-bottom: 6px;
+  }
+
+  /* Achievements: larger cards for their own screen */
+  main .awards {
+    gap: 20px;
+  }
+
+  main .award {
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(200px, 34vh, 300px);
+    padding: clamp(24px, 4vh, 40px) 32px;
+    counter-increment: award;
+  }
+
+  main .award::after {
+    content: '0' counter(award);
+    margin-top: auto;
+    align-self: flex-end;
+    font-family: var(--serif);
+    font-size: 3.4rem;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--award) 55%, transparent);
+  }
+
+  main .award-rank {
+    font-size: clamp(1.9rem, 4.4vh, 2.6rem);
+  }
+
+  main .award h4 {
+    margin-top: 14px;
+    font-size: 1.2rem;
+  }
+
+  main .award p {
+    font-size: 0.95rem;
+  }
+
+  /* Projects: horizontal carousel */
+  main .filters {
+    align-items: center;
+  }
+
+  main .carousel-nav {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  main .carousel-nav .icon-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  main .projects {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 32px) / 3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 6px 2px 10px;
+    margin: -6px -2px 0;
+  }
+
+  main .projects::-webkit-scrollbar {
+    display: none;
+  }
+
+  main .project {
+    scroll-snap-align: start;
+  }
+
+  main .project-feature {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1000px) {
+  main .projects {
+    grid-auto-columns: calc((100% - 16px) / 2);
+  }
+}
+
+/* Shorter laptop screens: tighten the two tallest sections */
+@media (min-width: 861px) and (max-height: 860px) {
+  .section-num {
+    font-size: clamp(3rem, 8vh, 5rem);
+  }
+
+  .section-head h2 {
+    font-size: clamp(2rem, 6vh, 3rem);
+  }
+
+  main .project {
+    padding: 20px 22px;
+  }
+
+  main .project-meta {
+    margin-bottom: 14px;
+  }
+
+  main .project p:not(.project-tagline) {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  main .project-links {
+    padding-top: 14px;
+  }
+
+  main .contact-big {
+    font-size: clamp(1.7rem, 5vh, 2.6rem);
+  }
+
+  main .contact-email {
+    margin-top: 16px;
+  }
+
+  main .contact-list {
+    margin-top: 20px;
+  }
+
+  main .contact-list li {
+    padding: 10px 0;
+  }
+
+  main .form {
+    gap: 12px;
+    padding: 20px 24px;
+  }
+
+  main .field textarea {
+    height: 96px;
+  }
+
+  main .form-note {
+    display: none;
+  }
 }
