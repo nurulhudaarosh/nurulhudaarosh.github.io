@@ -1839,6 +1839,18 @@ a.btn-small:hover {
 .timeline .timeline-item:nth-child(2) .timeline-content { --accent: #06b6d4; --glow: rgba(6, 182, 212, 0.32); --tint: rgba(6, 182, 212, 0.12); }
 .timeline .timeline-item:nth-child(3) .timeline-content { --accent: #ec4899; --glow: rgba(236, 72, 153, 0.32); --tint: rgba(236, 72, 153, 0.1); }
 .timeline .timeline-item:nth-child(4) .timeline-content { --accent: #10b981; --glow: rgba(16, 185, 129, 0.3); --tint: rgba(16, 185, 129, 0.1); }
+.timeline .timeline-item:nth-child(5) .timeline-content { --accent: #f59e0b; --glow: rgba(245, 158, 11, 0.3); --tint: rgba(245, 158, 11, 0.1); }
+
+.timeline-link {
+  color: var(--accent, var(--primary-light));
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.timeline-link:hover {
+  text-decoration: underline;
+}
 
 .contact-links .contact-item:nth-child(1) { --accent: #06b6d4; --glow: rgba(6, 182, 212, 0.3); --tint: rgba(6, 182, 212, 0.12); }
 .contact-links .contact-item:nth-child(2) { --accent: #10b981; --glow: rgba(16, 185, 129, 0.3); --tint: rgba(16, 185, 129, 0.12); }
