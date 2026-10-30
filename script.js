@@ -1,6 +1,5 @@
 const root = document.documentElement;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const EMAIL = 'mhuda223303@bscse.uiu.ac.bd';
 const CV_URL = 'MD-Nurul-Huda-CV.pdf';
 
@@ -76,10 +75,7 @@ const viewToggle = document.getElementById('viewToggle');
 function setView(next) {
   root.setAttribute('data-view', next);
   savePref('view', next);
-  document.querySelectorAll('.tilt').forEach(el => {
-    el.style.removeProperty('--rx');
-    el.style.removeProperty('--ry');
-  });
+  window.scrollTo(0, 0);
   if (next === '3d') startSphere(); else stopSphere();
 }
 
@@ -171,28 +167,7 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
   });
 }
 
-// 3D tilt (mouse / trackpad only)
-if (finePointer && !reduceMotion) {
-  document.querySelectorAll('.tilt').forEach(el => {
-    const max = el.classList.contains('project') || el.classList.contains('award') ? 10 : 7;
-    el.addEventListener('pointermove', (e) => {
-      if (root.getAttribute('data-view') !== '3d') return;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      el.style.setProperty('--ry', `${(x - 0.5) * max * 2}deg`);
-      el.style.setProperty('--rx', `${(0.5 - y) * max * 2}deg`);
-      el.style.setProperty('--mx', `${x * 100}%`);
-      el.style.setProperty('--my', `${y * 100}%`);
-    });
-    el.addEventListener('pointerleave', () => {
-      el.style.removeProperty('--rx');
-      el.style.removeProperty('--ry');
-    });
-  });
-}
-
-// Skills sphere (3D view)
+// Skills sphere (shown on the skills page of the 3D book)
 const sphereWrap = document.querySelector('.sphere-wrap');
 const sphere = document.getElementById('sphere');
 const AUTO_SPIN = reduceMotion ? 0 : 0.0035;
@@ -229,7 +204,7 @@ function buildSphere() {
 }
 
 function renderSphere() {
-  const radius = Math.min(sphereWrap.clientWidth * 0.38, 190);
+  const radius = Math.min(sphereWrap.clientWidth * 0.38, sphereWrap.clientHeight * 0.4, 190);
   const cx = Math.cos(rotX), sx = Math.sin(rotX), cy = Math.cos(rotY), sy = Math.sin(rotY);
   sphereItems.forEach(p => {
     // rotate around Y, then X
@@ -330,7 +305,7 @@ const commands = {
     { text: '  linkedin     open my LinkedIn' },
     { text: '  email        copy my email' },
     { text: '  theme        toggle light/dark' },
-    { text: '  3d / 2d      switch the page view' },
+    { text: '  3d / 2d      open the 3D book / back to the page' },
     { text: '  clear        clear the screen' },
   ],
 
@@ -430,7 +405,7 @@ const commands = {
 
   '3d': () => {
     setView('3d');
-    return [{ text: 'Switched to 3D view. Hover the cards and spin the skills sphere.', class: 'success' }];
+    return [{ text: 'Opening the 3D book...', class: 'success' }];
   },
 
   '2d': () => {

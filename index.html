@@ -79,7 +79,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=JetBrains+Mono:wght@400;500&family=Noto+Serif:ital@0;1&family=Noto+Serif+TC:wght@500&family=Tiro+Bangla&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261030c">
+  <link rel="stylesheet" href="style.css?v=20261030d">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -101,7 +101,7 @@
       </nav>
       <div class="nav-tools">
         <span class="clock mono" id="clock" title="Local time in Dhaka"></span>
-        <button class="pill-btn" id="viewToggle" aria-label="Switch between 2D and 3D view">
+        <button class="pill-btn" id="viewToggle" aria-label="Switch between the page and the 3D book">
           <span class="when-2d">3D</span><span class="when-3d">2D</span>
         </button>
         <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
@@ -118,7 +118,7 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero" id="top">
-      <div class="floor" aria-hidden="true"></div>
+      <canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas>
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow mono"><span class="dot"></span> <span>B.Sc. in CSE, United International University · Class of 2026</span></p>
@@ -142,12 +142,11 @@
         </div>
 
         <figure class="portrait">
-          <div class="portrait-frame tilt">
+          <div class="portrait-frame">
             <picture>
               <source srcset="assets/profile.webp" type="image/webp">
               <img src="assets/profile.jpg" alt="Portrait of MD. Nurul Huda" width="288" height="288">
             </picture>
-            <span class="glare" aria-hidden="true"></span>
           </div>
           <p class="hello hand" aria-hidden="true"><span>hi, that's me!</span> <svg viewBox="0 0 40 24"><path d="M38 4C26 2 12 6 4 18m0 0 1-8m-1 8 8-2"/></svg></p>
           <figcaption class="mono">
@@ -158,7 +157,7 @@
           </figcaption>
         </figure>
 
-        <aside class="quote-card tilt" aria-label="Quotes">
+        <aside class="quote-card" aria-label="Quotes">
           <div class="quote-head">
             <span class="quote-cat mono" id="quoteCat"></span>
             <div class="quote-nav">
@@ -172,16 +171,15 @@
             <footer class="quote-src" id="quoteSrc"></footer>
           </blockquote>
           <div class="quote-progress" aria-hidden="true"><span id="quoteBar"></span></div>
-          <span class="glare" aria-hidden="true"></span>
         </aside>
       </div>
 
       <div class="container">
         <dl class="stats">
-          <div class="tilt"><dt>CGPA</dt><dd>3.81</dd></div>
-          <div class="tilt"><dt>Projects shipped</dt><dd>9+</dd></div>
-          <div class="tilt"><dt>Project-show awards</dt><dd>2</dd></div>
-          <div class="tilt"><dt>Teams led</dt><dd>3</dd></div>
+          <div><dt>CGPA</dt><dd>3.81</dd></div>
+          <div><dt>Projects shipped</dt><dd>9+</dd></div>
+          <div><dt>Project-show awards</dt><dd>2</dd></div>
+          <div><dt>Teams led</dt><dd>3</dd></div>
         </dl>
       </div>
     </section>
@@ -277,23 +275,20 @@
 
         <h3 class="label mono sub-label">Achievements</h3>
         <div class="awards">
-          <article class="award tilt">
+          <article class="award">
             <span class="award-rank">Champion</span>
             <h4>Aegis</h4>
             <p>CSE Project Show, Summer 2025 · Software Engineering Lab</p>
-            <span class="glare" aria-hidden="true"></span>
           </article>
-          <article class="award tilt">
+          <article class="award">
             <span class="award-rank">3rd Runner-Up</span>
             <h4>Self Management System</h4>
             <p>CSE Project Show, Fall 2023 · AOOP Lab</p>
-            <span class="glare" aria-hidden="true"></span>
           </article>
-          <article class="award tilt">
+          <article class="award">
             <span class="award-rank">GPA 5.00</span>
             <h4>Higher Secondary Certificate</h4>
             <p>Science, 2021</p>
-            <span class="glare" aria-hidden="true"></span>
           </article>
         </div>
       </div>
@@ -317,7 +312,7 @@
         </div>
 
         <div class="projects">
-          <article class="project project-feature tilt" data-tags="ai">
+          <article class="project project-feature" data-tags="ai">
             <div class="project-meta mono"><span>01</span><span>AI · Research</span></div>
             <h3>Agentic Trade</h3>
             <p class="project-tagline">Remember, Verify, Act — a self-correcting agent memory for LLM trading agents.</p>
@@ -326,10 +321,9 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/Agentic_trade" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="web">
+          <article class="project" data-tags="web">
             <div class="project-meta mono"><span>02</span><span class="badge">🏆 Champion</span></div>
             <h3>Aegis</h3>
             <p class="project-tagline">Emergency reporting and response platform.</p>
@@ -338,10 +332,9 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/aegis_backend" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="ai">
+          <article class="project" data-tags="ai">
             <div class="project-meta mono"><span>03</span><span>Research</span></div>
             <h3>Green Code Interaction Benchmark</h3>
             <p class="project-tagline">How energy-efficient is AI-generated code?</p>
@@ -350,10 +343,9 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/green-code-interaction-benchmark" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="iot">
+          <article class="project" data-tags="iot">
             <div class="project-meta mono"><span>04</span><span>IoT · Team Lead</span></div>
             <h3>SPAK — Smart Precision Agricultural Kit</h3>
             <p class="project-tagline">Modular rover for precision agriculture.</p>
@@ -363,10 +355,9 @@
               <a href="https://spak-dashboard-plum.vercel.app" target="_blank" rel="noopener" class="text-link">Live demo ↗</a>
               <a href="https://github.com/nurulhudaarosh/spak-dashboard" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="web">
+          <article class="project" data-tags="web">
             <div class="project-meta mono"><span>05</span><span>Web · Team Lead</span></div>
             <h3>UniHub</h3>
             <p class="project-tagline">Social platform for a university community.</p>
@@ -375,10 +366,9 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/UniHub" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="web">
+          <article class="project" data-tags="web">
             <div class="project-meta mono"><span>06</span><span>PWA</span></div>
             <h3>Hisab Nikash Pro</h3>
             <p class="project-tagline">Offline-first personal finance app.</p>
@@ -388,10 +378,9 @@
               <a href="https://hisab-nikash-pro-six.vercel.app" target="_blank" rel="noopener" class="text-link">Live demo ↗</a>
               <a href="https://github.com/nurulhudaarosh/Hisab-Nikash-Pro" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="desktop">
+          <article class="project" data-tags="desktop">
             <div class="project-meta mono"><span>07</span><span class="badge">🏆 3rd Runner-Up</span></div>
             <h3>Self Management System</h3>
             <p class="project-tagline">Personal dashboard for tasks, notes and goals.</p>
@@ -400,10 +389,9 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/Self_Management" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="desktop">
+          <article class="project" data-tags="desktop">
             <div class="project-meta mono"><span>08</span><span>Desktop</span></div>
             <h3>IPTV Player</h3>
             <p class="project-tagline">Lightweight cross-platform streaming player.</p>
@@ -412,10 +400,9 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/iptv-player" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
 
-          <article class="project tilt" data-tags="desktop">
+          <article class="project" data-tags="desktop">
             <div class="project-meta mono"><span>09</span><span>CLI</span></div>
             <h3>CLI Download Manager</h3>
             <p class="project-tagline">Terminal UI for files and YouTube downloads.</p>
@@ -424,7 +411,6 @@
             <div class="project-links">
               <a href="https://github.com/nurulhudaarosh/cli_download_manager" target="_blank" rel="noopener" class="text-link">Source ↗</a>
             </div>
-            <span class="glare" aria-hidden="true"></span>
           </article>
         </div>
       </div>
@@ -457,7 +443,7 @@
             <h3>Prefer the command line?</h3>
             <p>Explore this portfolio from a tiny terminal. Try <code>help</code>, <code>projects</code> or <code>cv</code>. Use ↑/↓ for history and Tab to autocomplete.</p>
           </div>
-          <div class="terminal tilt" id="terminal">
+          <div class="terminal" id="terminal">
             <div class="terminal-bar">
               <span></span><span></span><span></span>
               <p class="mono">nurul@portfolio: ~</p>
@@ -494,7 +480,7 @@
               <li><span class="mono muted">Location</span><span>Vatara, Dhaka, Bangladesh</span></li>
             </ul>
           </div>
-          <form class="form tilt" id="contactForm">
+          <form class="form" id="contactForm">
             <label class="field">
               <span class="mono">Name</span>
               <input type="text" id="name" name="name" autocomplete="name" required>
@@ -515,6 +501,18 @@
     </section>
   </main>
 
+  <section class="book-stage" id="bookStage" aria-label="Portfolio as a 3D book">
+    <div class="book-scaler" id="bookScaler">
+      <div class="book" id="book"></div>
+    </div>
+    <div class="book-controls">
+      <button class="pill-btn" id="bookPrev" aria-label="Previous page">←</button>
+      <span class="book-indicator mono" id="bookIndicator" aria-live="polite">Cover</span>
+      <button class="pill-btn" id="bookNext" aria-label="Next page">→</button>
+    </div>
+    <p class="book-hint mono">Use the bookmarks, ← → keys, or swipe to turn pages</p>
+  </section>
+
   <footer class="footer">
     <div class="container footer-inner">
       <p>&copy; <span id="year">2026</span> <span>MD. Nurul Huda</span></p>
@@ -523,7 +521,9 @@
     </div>
   </footer>
 
-  <script src="quotes.js?v=20261030c"></script>
-  <script src="script.js?v=20261030c"></script>
+  <script src="quotes.js?v=20261030d"></script>
+  <script src="script.js?v=20261030d"></script>
+  <script src="book.js?v=20261030d"></script>
+  <script type="module" src="bg.js?v=20261030d"></script>
 </body>
 </html>

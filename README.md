@@ -5,7 +5,8 @@ Personal portfolio website. Live at **https://nurulhudaarosh.github.io/**
 ## Features
 
 - Editorial design (Fraunces / Bricolage Grotesque / JetBrains Mono / Caveat) with light & dark mode that follows the system setting
-- **2D / 3D view**: 3D adds a perspective floor, tilting cards with glare, 3D scroll entrances and a draggable skills sphere
+- Animated three.js dot-terrain background (reacts to the mouse, follows the theme) and a subtle paper grain
+- **3D book view**: the whole portfolio as a book with 3D page turns, bookmark ribbons for each section, a contents page, keyboard/swipe navigation and a draggable skills sphere
 - Rotating quotes in their original language (Arabic with Bangla translation, Bangla poets, Greek, Chinese, French and English with translations) and sources
 - Preferences are remembered and shareable via URL, e.g. `?view=3d&theme=dark`
 - Sections: About & education, experience & leadership, achievements, filterable projects, skills, contact
