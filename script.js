@@ -275,6 +275,7 @@ const commands = {
 
   cv: () => {
     window.open('MD-Nurul-Huda-CV.pdf', '_blank');
+    track('cv_download', { link_url: 'MD-Nurul-Huda-CV.pdf', source: 'terminal' });
     return [{ text: 'Opening CV...', class: 'success' }];
   },
   
@@ -323,6 +324,7 @@ function processCommand(input) {
   const trimmed = input.trim().toLowerCase();
   
   addCommand(input);
+  if (input.trim()) track('terminal_command', { command: input.trim().toLowerCase().slice(0, 30) });
   
   if (trimmed === '') {
     return;
@@ -550,3 +552,20 @@ window.addEventListener('load', () => {
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Analytics: track outbound / CV / contact clicks
+function track(name, params) {
+  if (typeof gtag === 'function') gtag('event', name, params);
+}
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  const label = link.textContent.trim().replace(/\s+/g, ' ') || link.getAttribute('aria-label') || href;
+  const project = link.closest('.project-card')?.querySelector('.project-title')?.textContent.trim();
+
+  if (href.endsWith('.pdf')) track('cv_download', { link_url: href });
+  else if (href.startsWith('mailto:') || href.startsWith('tel:')) track('contact_click', { method: href.split(':')[0], link_text: label });
+  else if (/^https?:/.test(href)) track('outbound_click', { link_url: href, link_text: label, project: project || '' });
+});
