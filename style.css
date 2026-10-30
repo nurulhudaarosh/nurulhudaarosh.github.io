@@ -558,8 +558,12 @@ textarea:focus-visible {
 .portrait {
   grid-area: portrait;
   position: relative;
-  justify-self: start;
-  width: min(100%, 230px);
+  justify-self: stretch;
+  --photo: min(100%, 230px);
+}
+
+.portrait-frame {
+  width: var(--photo);
 }
 
 .portrait-frame {
@@ -626,8 +630,8 @@ textarea:focus-visible {
 
 .portrait-side {
   position: absolute;
-  left: calc(100% + 16px);
-  top: 18%;
+  right: 0;
+  top: 8%;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -668,9 +672,6 @@ textarea:focus-visible {
 }
 
 @media (min-width: 861px) and (max-width: 1080px) {
-  .portrait-side {
-    left: calc(100% + 10px);
-  }
 
   .sysinfo {
     padding: 8px 10px;
@@ -1591,7 +1592,7 @@ textarea:focus-visible {
   }
 
   .portrait {
-    width: 150px;
+    --photo: 150px;
   }
 
   .portrait-frame {
@@ -1726,7 +1727,7 @@ textarea:focus-visible {
   }
 
   .portrait {
-    width: min(230px, 25vh);
+    --photo: min(230px, 25vh);
   }
 
   .portrait figcaption {
