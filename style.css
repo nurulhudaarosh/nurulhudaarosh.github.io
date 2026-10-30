@@ -337,6 +337,15 @@ body:not(.has-custom-cursor) .cursor-follower {
 .btn-small {
   padding: 10px 20px;
   font-size: 0.875rem;
+  background: var(--glass);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+a.btn-small:hover {
+  border-color: var(--accent, var(--primary));
+  color: var(--accent, var(--primary-light));
+  transform: translateY(-2px);
 }
 
 .hero-social {
@@ -1717,6 +1726,40 @@ body:not(.has-custom-cursor) .cursor-follower {
   background: linear-gradient(135deg, #ec4899, #8b5cf6);
 }
 
+.projects-grid .project-card:nth-child(4) .project-badge {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+}
+
+.projects-grid .project-card:nth-child(5) .project-badge {
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+}
+
+.projects-grid .project-card:nth-child(6) .project-badge {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+}
+
+.project-links {
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1100px) {
+  .projects-grid .project-card.featured {
+    grid-column: span 2;
+  }
+}
+
+.projects-grid .project-card:nth-child(8) { --accent: #06b6d4; --glow: rgba(6, 182, 212, 0.32); --tint: rgba(6, 182, 212, 0.14); }
+
+.projects-grid .project-card:nth-child(8) .project-badge {
+  background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
 .about-card:hover {
   border-color: #06b6d4;
   box-shadow: 0 22px 50px rgba(6, 182, 212, 0.32), 0 0 24px rgba(6, 182, 212, 0.18);
@@ -1787,6 +1830,10 @@ body:not(.has-custom-cursor) .cursor-follower {
 .projects-grid .project-card:nth-child(1) { --accent: #8b5cf6; --glow: rgba(139, 92, 246, 0.35); --tint: rgba(139, 92, 246, 0.14); }
 .projects-grid .project-card:nth-child(2) { --accent: #06b6d4; --glow: rgba(6, 182, 212, 0.32); --tint: rgba(6, 182, 212, 0.14); }
 .projects-grid .project-card:nth-child(3) { --accent: #ec4899; --glow: rgba(236, 72, 153, 0.32); --tint: rgba(236, 72, 153, 0.12); }
+.projects-grid .project-card:nth-child(4) { --accent: #10b981; --glow: rgba(16, 185, 129, 0.3); --tint: rgba(16, 185, 129, 0.12); }
+.projects-grid .project-card:nth-child(5) { --accent: #f59e0b; --glow: rgba(245, 158, 11, 0.32); --tint: rgba(245, 158, 11, 0.14); }
+.projects-grid .project-card:nth-child(6) { --accent: #3b82f6; --glow: rgba(59, 130, 246, 0.32); --tint: rgba(59, 130, 246, 0.12); }
+.projects-grid .project-card:nth-child(7) { --accent: #8b5cf6; --glow: rgba(139, 92, 246, 0.35); --tint: rgba(139, 92, 246, 0.14); }
 
 .timeline .timeline-item:nth-child(1) .timeline-content { --accent: #8b5cf6; --glow: rgba(139, 92, 246, 0.32); --tint: rgba(139, 92, 246, 0.12); }
 .timeline .timeline-item:nth-child(2) .timeline-content { --accent: #06b6d4; --glow: rgba(6, 182, 212, 0.32); --tint: rgba(6, 182, 212, 0.12); }
