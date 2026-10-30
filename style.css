@@ -31,7 +31,19 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* Custom cursor only for mouse / trackpad users (set in script.js) */
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button,
+body.has-custom-cursor .project-card {
   cursor: none;
+}
+
+body:not(.has-custom-cursor) .cursor,
+body:not(.has-custom-cursor) .cursor-follower {
+  display: none;
 }
 
 /* Custom Cursor */
@@ -58,9 +70,6 @@ body {
   transition: all 0.15s ease-out;
 }
 
-a, button, .skill-item, .project-card {
-  cursor: none;
-}
 
 .container {
   max-width: 1200px;
@@ -284,6 +293,7 @@ a, button, .skill-item, .project-card {
 
 .hero-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 48px;
 }
@@ -468,6 +478,7 @@ a, button, .skill-item, .project-card {
 
 .terminal-input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   color: var(--text-primary);
@@ -1410,7 +1421,7 @@ a, button, .skill-item, .project-card {
 /* Responsive */
 @media (max-width: 968px) {
   .hero-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     text-align: center;
     gap: 48px;
   }
@@ -1420,7 +1431,8 @@ a, button, .skill-item, .project-card {
   }
 
   .hero-buttons,
-  .hero-social {
+  .hero-social,
+  .hero-title-wrapper {
     justify-content: center;
   }
 
@@ -1829,4 +1841,66 @@ a, button, .skill-item, .project-card {
 [data-theme="light"] .timeline .timeline-content:hover,
 [data-theme="light"] .contact-links .contact-item:hover {
   background: linear-gradient(135deg, var(--tint), transparent);
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 10001;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 3px;
+}
+
+.btn-static,
+.btn-static:hover {
+  cursor: default;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
 }

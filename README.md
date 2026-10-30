@@ -1,13 +1,15 @@
 # Portfolio — MD. Nurul Huda
 
-Personal portfolio website. Live at **https://nurulhudaarosh.me/**
+Personal portfolio website. Live at **https://nurulhudaarosh.github.io/Portfolio/**
 
 ## Features
 
-- Interactive terminal in hero section (try `help` command)
+- Interactive terminal in hero section (try `help`; ↑/↓ history, Tab autocomplete)
 - 3D orbiting tech-stack-Skills with depth effect
 - Dark / white mode toggle (saved in browser)
 - Per-card signature hover colors
+- Contact form opens a prefilled email draft (no backend needed)
+- Accessible: keyboard focus styles, skip link, reduced-motion support
 - Fully responsive, no build step — pure HTML/CSS/JS
 
 ## Sections
@@ -24,4 +26,4 @@ python3 -m http.server 8000
 
 ## Deploy
 
-Push to `main` → GitHub Actions deploys to GitHub Pages (custom domain: nurulhudaarosh.me).
+Push to `main` → GitHub Actions deploys to GitHub Pages at https://nurulhudaarosh.github.io/Portfolio/.

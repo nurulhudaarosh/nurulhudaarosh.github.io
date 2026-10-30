@@ -1,7 +1,11 @@
 // Custom Cursor
 const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
-const links = document.querySelectorAll('a, button, .skill-item');
+const links = document.querySelectorAll('a, button');
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (finePointer) document.body.classList.add('has-custom-cursor');
 
 document.addEventListener('mousemove', (e) => {
   cursor.style.left = e.clientX + 'px';
@@ -39,12 +43,14 @@ window.addEventListener('scroll', () => {
 });
 
 navToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
+  const open = navLinks.classList.toggle('active');
+  navToggle.setAttribute('aria-expanded', open);
 });
 
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     navLinks.classList.remove('active');
+    navToggle.setAttribute('aria-expanded', 'false');
   });
 });
 
@@ -70,7 +76,7 @@ function highlightNav() {
   });
 }
 
-window.addEventListener('scroll', highlightNav);
+window.addEventListener('scroll', highlightNav, { passive: true });
 
 // Typing Effect
 const heroTitle = document.getElementById('heroTitle');
@@ -109,7 +115,11 @@ function typeEffect() {
   setTimeout(typeEffect, typeSpeed);
 }
 
-setTimeout(typeEffect, 1000);
+if (reduceMotion) {
+  heroTitle.textContent = titles[0];
+} else {
+  setTimeout(typeEffect, 1000);
+}
 
 // Scroll Animations
 const observerOptions = {
@@ -133,7 +143,7 @@ document.querySelectorAll('.glass-card, .timeline-item, .section-header, .termin
 // 3D Tilt Effect on Cards
 const cards = document.querySelectorAll('.glass-card');
 
-cards.forEach(card => {
+if (finePointer && !reduceMotion) cards.forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -171,9 +181,12 @@ const commands = {
     { text: '  github     - Open my GitHub', class: 'output' },
     { text: '  linkedin   - Open my LinkedIn', class: 'output' },
     { text: '  email      - Copy my email', class: 'output' },
+    { text: '  cv         - Open my CV (PDF)', class: 'output' },
     { text: '  clear      - Clear terminal', class: 'output' },
     { text: '  whoami     - Who am I?', class: 'output' },
     { text: '  date       - Current date', class: 'output' },
+    { text: '', class: 'output' },
+    { text: 'Tip: use ↑/↓ for history, Tab to autocomplete.', class: 'output' },
   ],
   
   about: () => [
@@ -231,12 +244,12 @@ const commands = {
     { text: 'Email:    mhuda223303@bscse.uiu.ac.bd', class: 'output' },
     { text: 'Phone:    +880 1792-021499', class: 'output' },
     { text: 'LinkedIn: linkedin.com/in/nurul-huda-arosh', class: 'output' },
-    { text: 'GitHub:   github.com/nurul5801', class: 'output' },
+    { text: 'GitHub:   github.com/nurulhudaarosh', class: 'output' },
     { text: 'Address:  Queen\'s Garden, Nurerchala, Vatara, Dhaka', class: 'output' },
   ],
   
   github: () => {
-    window.open('https://github.com/nurul5801', '_blank');
+    window.open('https://github.com/nurulhudaarosh', '_blank');
     return [{ text: 'Opening GitHub profile...', class: 'success' }];
   },
   
@@ -246,8 +259,18 @@ const commands = {
   },
   
   email: () => {
-    navigator.clipboard.writeText('mhuda223303@bscse.uiu.ac.bd');
-    return [{ text: 'Email copied to clipboard!', class: 'success' }];
+    const address = 'mhuda223303@bscse.uiu.ac.bd';
+    if (!navigator.clipboard) return [{ text: address, class: 'output' }];
+    navigator.clipboard.writeText(address).then(
+      () => addOutput([{ text: 'Email copied to clipboard!', class: 'success' }]),
+      () => addOutput([{ text: address, class: 'output' }])
+    );
+    return [];
+  },
+
+  cv: () => {
+    window.open('MD-Nurul-Huda-CV.pdf', '_blank');
+    return [{ text: 'Opening CV...', class: 'success' }];
   },
   
   clear: () => {
@@ -284,7 +307,10 @@ function addOutput(lines) {
 function addCommand(cmd) {
   const p = document.createElement('p');
   p.className = 'terminal-line cmd';
-  p.innerHTML = `<span class="terminal-prompt">nurul@portfolio ~ %</span> ${cmd}`;
+  const prompt = document.createElement('span');
+  prompt.className = 'terminal-prompt';
+  prompt.textContent = 'nurul@portfolio ~ %';
+  p.append(prompt, ' ' + cmd);
   terminalOutput.appendChild(p);
 }
 
@@ -312,16 +338,36 @@ function processCommand(input) {
   terminalBody.scrollTop = terminalBody.scrollHeight;
 }
 
+const history = [];
+let historyIndex = 0;
+
 terminalInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    processCommand(terminalInput.value);
+    const value = terminalInput.value;
+    if (value.trim()) history.push(value);
+    historyIndex = history.length;
+    processCommand(value);
     terminalInput.value = '';
-  }
-  
-  // Command history with arrow keys
-  if (e.key === 'ArrowUp') {
+  } else if (e.key === 'ArrowUp') {
     e.preventDefault();
-    // Could implement command history here
+    if (historyIndex > 0) terminalInput.value = history[--historyIndex];
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    historyIndex = Math.min(historyIndex + 1, history.length);
+    terminalInput.value = history[historyIndex] || '';
+  } else if (e.key === 'Tab') {
+    const partial = terminalInput.value.trim().toLowerCase();
+    const matches = Object.keys(commands).filter(c => c.startsWith(partial));
+    if (partial && matches.length) {
+      e.preventDefault();
+      if (matches.length === 1) {
+        terminalInput.value = matches[0];
+      } else {
+        addCommand(terminalInput.value);
+        addOutput([{ text: matches.join('  '), class: 'output' }]);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
+    }
   }
 });
 
@@ -331,7 +377,7 @@ terminal.addEventListener('click', () => {
 });
 
 // Terminal 3D Effect
-terminal.addEventListener('mousemove', (e) => {
+if (finePointer && !reduceMotion) terminal.addEventListener('mousemove', (e) => {
   const rect = terminal.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
@@ -345,12 +391,12 @@ terminal.addEventListener('mousemove', (e) => {
   terminal.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
 
-terminal.addEventListener('mouseleave', () => {
+if (finePointer && !reduceMotion) terminal.addEventListener('mouseleave', () => {
   terminal.style.transform = 'rotateY(-10deg) rotateX(5deg)';
 });
 
 // Parallax Effect on Hero
-document.addEventListener('mousemove', (e) => {
+if (finePointer && !reduceMotion) document.addEventListener('mousemove', (e) => {
   const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
   const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
   
@@ -360,125 +406,38 @@ document.addEventListener('mousemove', (e) => {
   });
 });
 
-// Contact Form
+// Contact Form (no backend: opens a prefilled email draft)
 const contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
 
   if (!name || !email || !message) {
     alert('Please fill in all fields.');
     return;
   }
 
-  const submitBtn = contactForm.querySelector('.btn-submit');
-  const originalText = submitBtn.innerHTML;
-  submitBtn.innerHTML = '<span>Sending...</span>';
-  submitBtn.disabled = true;
-
-  setTimeout(() => {
-    alert(`Thank you, ${name}! Your message has been sent.`);
-    contactForm.reset();
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-  }, 1500);
+  const subject = `Portfolio contact from ${name}`;
+  const body = `${message}\n\n— ${name} (${email})`;
+  window.location.href = `mailto:mhuda223303@bscse.uiu.ac.bd?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  contactForm.reset();
 });
 
 // Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    const href = this.getAttribute('href');
+    const target = href.length > 1 && document.querySelector(href);
     if (target) {
+      e.preventDefault();
       target.scrollIntoView({
-        behavior: 'smooth',
+        behavior: reduceMotion ? 'auto' : 'smooth',
         block: 'start'
       });
-    }
-  });
-});
-
-// Particle Generation
-function createParticles() {
-  const container = document.getElementById('particles');
-  if (!container) return;
-  
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-    particle.style.animationDelay = Math.random() * 10 + 's';
-    particle.style.width = (Math.random() * 4 + 2) + 'px';
-    particle.style.height = particle.style.width;
-    container.appendChild(particle);
-  }
-}
-
-createParticles();
-
-// Skill Items Hover Effect
-const skillItems = document.querySelectorAll('.skill-item');
-
-skillItems.forEach(item => {
-  item.addEventListener('mouseenter', () => {
-    // Create ripple effect
-    const ripple = document.createElement('div');
-    ripple.style.cssText = `
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-      border-radius: 16px;
-      animation: rippleEffect 0.6s ease-out forwards;
-      pointer-events: none;
-    `;
-    item.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-  });
-});
-
-// Add ripple animation CSS
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes rippleEffect {
-    0% {
-      transform: scale(0.5);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(2);
-      opacity: 0;
-    }
-  }
-`;
-document.head.appendChild(style);
-
-// Magnetic effect on skill items
-document.addEventListener('mousemove', (e) => {
-  skillItems.forEach(item => {
-    const rect = item.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    const deltaX = e.clientX - centerX;
-    const deltaY = e.clientY - centerY;
-    
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    const maxDistance = 150;
-    
-    if (distance < maxDistance) {
-      const strength = (1 - distance / maxDistance) * 0.3;
-      const moveX = deltaX * strength;
-      const moveY = deltaY * strength;
-      
-      item.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    } else {
-      item.style.transform = '';
     }
   });
 });
@@ -489,8 +448,6 @@ document.addEventListener('mousemove', (e) => {
   if (!scene) return;
   const planets = Array.from(scene.querySelectorAll('.planet'));
   const ellipses = [scene.querySelector('.e1'), scene.querySelector('.e2'), scene.querySelector('.e3')];
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   const RING_SPEED = [0.28, -0.2, 0.14]; // rad/s, different timeframe + direction per orbit
   const TILT = 0.42;
 
@@ -561,13 +518,11 @@ document.addEventListener('mousemove', (e) => {
 
 // Theme Toggle (dark / light)
 const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('theme') || 'dark';
-document.documentElement.setAttribute('data-theme', savedTheme);
 
 themeToggle.addEventListener('click', () => {
   const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
 });
 
 // Page Load Animation
@@ -588,3 +543,5 @@ window.addEventListener('load', () => {
     }, 200 + index * 100);
   });
 });
+
+document.getElementById('year').textContent = new Date().getFullYear();
