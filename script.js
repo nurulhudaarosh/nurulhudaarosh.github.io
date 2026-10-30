@@ -277,7 +277,7 @@ const commands = {
   skills: () => [
     { text: 'Languages  C, C++, Python, JavaScript, TypeScript, Java, SQL' },
     { text: 'Web        HTML, CSS, Tailwind, React, Node.js, Express.js, Django' },
-    { text: 'Database   MySQL, SQLite' },
+    { text: 'Database   MySQL, PostgreSQL, MongoDB, SQLite' },
     { text: 'IoT        ESP32, Arduino, Raspberry Pi, Modbus RTU' },
     { text: 'Tools      Git, Docker, VS Code, LaTeX, Tauri' },
     { text: 'OS         Linux (Fedora, Ubuntu, Arch)' },
