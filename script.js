@@ -135,13 +135,13 @@ const commands = {
   about: () => [
     { text: 'MD. Nurul Huda (Arosh)', class: 'title' },
     { text: 'B.Sc. in CSE, United International University, Dhaka' },
-    { text: 'Undergraduate TA · Senior Executive, UIU Robotics Club' },
+    { text: 'CSE graduate (2026) · Senior Executive, UIU Robotics Club' },
     { text: 'Full stack web, IoT and LLM agents.', class: 'dim' },
   ],
 
   education: () => [
     { text: 'United International University', class: 'title' },
-    { text: '  B.Sc. in CSE · CGPA 3.80 · Expected 2026' },
+    { text: '  B.Sc. in CSE · CGPA 3.81 (provisional) · Completed Oct 2026' },
     { text: 'Mosjid Mission Academy School and College', class: 'title' },
     { text: '  H.S.C. (Science) · GPA 5.00 · 2021' },
   ],
