@@ -76,7 +76,6 @@ function setView(next) {
   root.setAttribute('data-view', next);
   savePref('view', next);
   window.scrollTo(0, 0);
-  if (next === '3d') startSphere(); else stopSphere();
 }
 
 viewToggle.addEventListener('click', () => {
@@ -149,7 +148,7 @@ document.getElementById('quotePrev').addEventListener('click', () => stepQuote(-
 document.getElementById('quoteNext').addEventListener('click', () => stepQuote(1));
 
 // Reveal on scroll
-const revealTargets = document.querySelectorAll('.section-head, .about-grid, .xp-item, .award, .project, .skill-row, .console, .contact-grid, .stats');
+const revealTargets = document.querySelectorAll('.section-head, .about-grid, .xp-item, .award, .project, .skill-card, .console, .contact-grid, .stats');
 
 if (!reduceMotion && 'IntersectionObserver' in window) {
   const revealObserver = new IntersectionObserver((entries) => {
@@ -166,106 +165,6 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
     revealObserver.observe(el);
   });
 }
-
-// Skills sphere (shown on the skills page of the 3D book)
-const sphereWrap = document.querySelector('.sphere-wrap');
-const sphere = document.getElementById('sphere');
-const AUTO_SPIN = reduceMotion ? 0 : 0.0035;
-let sphereItems = [];
-let sphereRAF = null;
-let rotX = -0.3;
-let rotY = 0;
-let velX = 0;
-let velY = AUTO_SPIN;
-let dragging = false;
-let lastX = 0;
-let lastY = 0;
-
-function buildSphere() {
-  const labels = Array.from(document.querySelectorAll('.skill-row h3')).map(h => h.textContent);
-  const skills = Array.from(document.querySelectorAll('.skills .tags li')).map(li => li.textContent.replace(/ — .*/, ''));
-  // Spread the category labels evenly between the skills
-  const words = skills.map(text => ({ text, label: false }));
-  labels.forEach((text, i) => words.splice(Math.round(((i + 0.5) * words.length) / labels.length) + i, 0, { text, label: true }));
-  const n = words.length;
-  sphere.innerHTML = '';
-  sphereItems = words.map((word, i) => {
-    // Fibonacci sphere: evenly spread points
-    const y = 1 - (i / (n - 1)) * 2;
-    const r = Math.sqrt(1 - y * y);
-    const theta = Math.PI * (3 - Math.sqrt(5)) * i;
-    const span = document.createElement('span');
-    span.textContent = word.text;
-    if (word.label) span.classList.add('is-accent');
-    sphere.appendChild(span);
-    return { el: span, x: Math.cos(theta) * r, y, z: Math.sin(theta) * r };
-  });
-  renderSphere();
-}
-
-function renderSphere() {
-  const radius = Math.min(sphereWrap.clientWidth * 0.38, sphereWrap.clientHeight * 0.4, 190);
-  const cx = Math.cos(rotX), sx = Math.sin(rotX), cy = Math.cos(rotY), sy = Math.sin(rotY);
-  sphereItems.forEach(p => {
-    // rotate around Y, then X
-    const x1 = p.x * cy + p.z * sy;
-    const z1 = -p.x * sy + p.z * cy;
-    const y2 = p.y * cx - z1 * sx;
-    const z2 = p.y * sx + z1 * cx;
-    const depth = (z2 + 1) / 2;
-    p.el.style.transform = `translate(-50%, -50%) translate3d(${x1 * radius}px, ${y2 * radius}px, 0) scale(${0.6 + depth * 0.55})`;
-    p.el.style.opacity = 0.25 + depth * 0.75;
-    p.el.style.zIndex = Math.round(depth * 100);
-  });
-}
-
-function tickSphere() {
-  rotY += velY;
-  rotX += velX;
-  if (!dragging) {
-    velX *= 0.95;
-    velY = velY * 0.95 + AUTO_SPIN * 0.05;
-  }
-  renderSphere();
-  sphereRAF = requestAnimationFrame(tickSphere);
-}
-
-function startSphere() {
-  if (!sphereItems.length) buildSphere();
-  if (!sphereRAF) sphereRAF = requestAnimationFrame(tickSphere);
-}
-
-function stopSphere() {
-  cancelAnimationFrame(sphereRAF);
-  sphereRAF = null;
-}
-
-sphereWrap.addEventListener('pointerdown', (e) => {
-  dragging = true;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  sphereWrap.setPointerCapture(e.pointerId);
-});
-
-sphereWrap.addEventListener('pointermove', (e) => {
-  if (!dragging) return;
-  velY = (e.clientX - lastX) * 0.005;
-  velX = -(e.clientY - lastY) * 0.005;
-  lastX = e.clientX;
-  lastY = e.clientY;
-});
-
-['pointerup', 'pointercancel'].forEach(type => sphereWrap.addEventListener(type, () => { dragging = false; }));
-
-// Only animate the sphere while it is on screen
-new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (root.getAttribute('data-view') !== '3d') return;
-    if (entry.isIntersecting) startSphere(); else stopSphere();
-  });
-}).observe(sphereWrap);
-
-window.addEventListener('resize', () => { if (sphereItems.length) renderSphere(); });
 
 // Project filters
 const filterButtons = document.querySelectorAll('.filters .chip');
@@ -526,4 +425,3 @@ document.addEventListener('click', (e) => {
 // Initial render
 renderQuote(false);
 document.getElementById('year').textContent = new Date().getFullYear();
-if (root.getAttribute('data-view') === '3d') startSphere();

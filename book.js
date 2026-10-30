@@ -1,6 +1,6 @@
 // 3D view: the portfolio as a book with turning pages and bookmark ribbons.
 // Pages are built from the 2D page's content; interactive parts (terminal,
-// contact form, skills sphere) are moved in and moved back when leaving.
+// contact form) are moved in and moved back when leaving.
 (function () {
   const root = document.documentElement;
   const stage = document.getElementById('bookStage');
@@ -114,7 +114,17 @@
     list.push(chapterPage('about', 'Education', edu, copy('.stats')));
 
     // Experience + achievements
-    list.push(chapterPage('experience', 'Experience & Leadership', copy('.xp')));
+    if (single) {
+      // Narrow pages: three roles per page
+      const first = copy('.xp');
+      const second = copy('.xp');
+      Array.from(first.children).slice(3).forEach(li => li.remove());
+      Array.from(second.children).slice(0, 3).forEach(li => li.remove());
+      list.push(chapterPage('experience', 'Experience & Leadership', first));
+      list.push(chapterPage('experience', 'Experience, continued', second));
+    } else {
+      list.push(chapterPage('experience', 'Experience & Leadership', copy('.xp')));
+    }
     list.push(chapterPage('experience', 'Achievements', copy('.awards')));
 
     // Projects, three per page
@@ -129,9 +139,8 @@
       list.push(chapterPage('projects', i === 0 ? 'Selected Projects' : 'Projects, continued', group));
     }
 
-    // Skills (with the live sphere) + terminal
-    const sphereWrap = borrow('.sphere-wrap');
-    list.push(chapterPage('skills', 'Skills & Tools', sphereWrap, copy('.skills')));
+    // Skills + terminal
+    list.push(chapterPage('skills', 'Skills & Tools', copy('.skills')));
     list.push(chapterPage('skills', 'Command Line', el('p', 'page-lead', 'Explore from a tiny terminal. Try <code>help</code>, <code>projects</code> or <code>cv</code>.'), borrow('#terminal')));
 
     // Contact + letter form
@@ -188,6 +197,7 @@
 
   function renderPage(page, index) {
     const face = el('div', `page page-${page.kind || 'chapter'}`);
+    if (page.chapter) face.classList.add(`chapter-${page.chapter}`);
     if (page.kind !== 'cover') {
       const side = single || index % 2 === 0 ? 'right' : 'left';
       face.classList.add(`page-${side}`);
@@ -334,7 +344,7 @@
   function layout() {
     if (!built) return;
     const designW = single ? 420 : 1040;
-    const designH = single ? 640 : 680;
+    const designH = single ? 720 : 680;
     const marksSpace = single ? 0 : 120;
     const marksTop = single ? 44 : 0;
     const controls = stage.querySelector('.book-controls').offsetHeight + 24;
@@ -384,10 +394,10 @@
     if (e.key === 'Home') goTo(0);
   });
 
-  // Swipe to turn (ignored on the sphere, terminal and form)
+  // Swipe to turn (ignored on the terminal and form)
   let startX = null;
   book.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.sphere-wrap, .terminal, form, a, button')) return;
+    if (e.target.closest('.terminal, form, a, button')) return;
     startX = e.clientX;
   });
   book.addEventListener('pointerup', (e) => {
