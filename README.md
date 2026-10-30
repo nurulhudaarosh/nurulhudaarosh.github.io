@@ -4,21 +4,16 @@ Personal portfolio website. Live at **https://nurulhudaarosh.github.io/**
 
 ## Features
 
-- Interactive terminal in hero section (try `help`; ↑/↓ history, Tab autocomplete)
-- 3D orbiting tech-stack-Skills with depth effect
-- Dark / white mode toggle (saved in browser)
-- Per-card signature hover colors
+- Clean editorial design (Instrument Serif / Inter / JetBrains Mono) with light & dark mode that follows the system setting
+- Sections: About & education, experience & leadership, achievements, filterable projects, skills, contact
+- Interactive terminal (`help`, `projects`, `cv`, …) with history (↑/↓) and Tab autocomplete
 - Contact form opens a prefilled email draft (no backend needed)
-- Accessible: keyboard focus styles, skip link, reduced-motion support
+- SEO: structured data (JSON-LD), Open Graph preview image, sitemap and robots.txt
+- Google Analytics with CV download, outbound link and contact click events
+- Accessible: semantic HTML, keyboard focus styles, skip link, reduced-motion support
 - Fully responsive, no build step — pure HTML/CSS/JS
 
-## Sections
-
-Home · About · Tech Stack · Projects · Experience · Contact
-
 ## Preview locally
-
-Just open `index.html` in a browser, or serve the folder:
 
 ```bash
 python3 -m http.server 8000

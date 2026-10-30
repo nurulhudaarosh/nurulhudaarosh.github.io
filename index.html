@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MD. Nurul Huda (Arosh) | CSE Student &amp; Full Stack Developer</title>
-  <meta name="description" content="Portfolio of MD. Nurul Huda Arosh, a CSE student at United International University (UIU), Dhaka. Full stack web, IoT and AI agent projects, research, skills and CV.">
-  <meta name="keywords" content="Nurul Huda, Nurul Huda Arosh, MD. Nurul Huda, UIU, United International University, CSE, full stack developer, IoT, LLM agents, portfolio, Dhaka, Bangladesh">
+  <meta name="description" content="Portfolio of MD. Nurul Huda Arosh, a CSE student at United International University (UIU), Dhaka. Full stack web, IoT and AI agent projects, research, teaching and leadership experience.">
+  <meta name="keywords" content="Nurul Huda, Nurul Huda Arosh, MD. Nurul Huda, UIU, United International University, UIU Robotics Club, CSE, full stack developer, IoT, LLM agents, portfolio, Dhaka, Bangladesh">
   <meta name="author" content="MD. Nurul Huda Arosh">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1012" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://nurulhudaarosh.github.io/">
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="MD. Nurul Huda Arosh">
   <meta property="og:title" content="MD. Nurul Huda (Arosh) | CSE Student &amp; Full Stack Developer">
-  <meta property="og:description" content="CSE student at UIU, Dhaka. Full stack web, IoT and AI agent projects, research and CV.">
+  <meta property="og:description" content="CSE student at UIU, Dhaka. Full stack web, IoT and AI agent projects, teaching and leadership.">
   <meta property="og:url" content="https://nurulhudaarosh.github.io/">
   <meta property="og:image" content="https://nurulhudaarosh.github.io/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -34,7 +35,7 @@
     "name": "MD. Nurul Huda",
     "alternateName": ["Nurul Huda Arosh", "MD. Nurul Huda Arosh", "Arosh"],
     "url": "https://nurulhudaarosh.github.io/",
-    "image": "https://nurulhudaarosh.github.io/og-image.png",
+    "image": "https://nurulhudaarosh.github.io/assets/profile.jpg",
     "jobTitle": "Computer Science and Engineering Student",
     "email": "mailto:mhuda223303@bscse.uiu.ac.bd",
     "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
@@ -44,16 +45,20 @@
       "url": "https://robotics.uiu.ac.bd/"
     },
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "United International University", "url": "https://www.uiu.ac.bd/" },
-    "knowsAbout": ["Full Stack Web Development", "IoT", "LLM Agents", "JavaScript", "TypeScript", "Python", "React", "Node.js", "MySQL", "ESP32"],
+    "knowsAbout": ["Full Stack Web Development", "IoT", "LLM Agents", "JavaScript", "TypeScript", "Python", "C++", "React", "Node.js", "Express.js", "MySQL", "ESP32", "Arduino", "Raspberry Pi"],
     "sameAs": [
       "https://github.com/nurulhudaarosh",
-      "https://linkedin.com/in/nurul-huda-arosh-776241168/"
+      "https://linkedin.com/in/nurul-huda-arosh-776241168/",
+      "https://robotics.uiu.ac.bd/committee-members/md-nurul-huda"
     ]
   }
   </script>
   <script>
-    // Apply saved theme before first paint to avoid a dark→light flash
-    try { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark'); } catch (e) {}
+    // Apply saved theme (or system preference) before first paint
+    try {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
   </script>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8TB3DFQMV"></script>
@@ -63,553 +68,406 @@
     gtag('js', new Date());
     gtag('config', 'G-H8TB3DFQMV');
   </script>
-  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a href="#about" class="skip-link">Skip to content</a>
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-follower" aria-hidden="true"></div>
+  <a href="#main" class="skip-link">Skip to content</a>
 
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#hero" class="logo" aria-label="Back to top">NH<span class="logo-dot">.</span></a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-        <span></span><span></span><span></span>
-      </button>
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand" aria-label="Back to top">
+        <span class="brand-mark">NH</span>
+        <span class="brand-name">Nurul Huda</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-tools">
+        <span class="clock mono" id="clock" title="Local time in Dhaka">Dhaka</span>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
-  </nav>
+  </header>
 
   <main id="main">
-  <section class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
-      <div class="grid-overlay"></div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <p class="hero-greeting">Hello, I'm</p>
-        <h1 class="hero-name">
-          <span class="name-line">MD. Nurul</span>
-          <span class="name-line highlight">Huda</span>
-        </h1>
-        <div class="hero-title-wrapper">
-          <span class="hero-title" id="heroTitle"></span>
-          <span class="title-cursor">|</span>
-        </div>
-        <p class="hero-description">B.Sc. in Computer Science and Engineering at United International University, Dhaka</p>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">
-            <span>View Projects</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#contact" class="btn btn-glass">Get In Touch</a>
-          <a href="MD-Nurul-Huda-CV.pdf" target="_blank" rel="noopener" class="btn btn-glass">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>My CV</span>
-          </a>
-        </div>
-        <div class="hero-social">
-          <a href="mailto:mhuda223303@bscse.uiu.ac.bd" class="social-link" aria-label="Email">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          </a>
-          <a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          </a>
-          <a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="terminal">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <span class="terminal-title">nurul@portfolio ~ %</span>
-          </div>
-          <div class="terminal-body" id="terminalBody">
-            <div class="terminal-output">
-              <p class="terminal-line">Welcome to my portfolio terminal!</p>
-              <p class="terminal-line">Type <span class="highlight">help</span> to see available commands.</p>
-            </div>
-            <div class="terminal-input-line">
-              <span class="terminal-prompt">nurul@portfolio ~ %</span>
-              <input type="text" class="terminal-input" id="terminalInput" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Terminal command input">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="scroll-indicator">
-      <div class="mouse">
-        <div class="wheel"></div>
-      </div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">About</span>
-        <h2 class="section-title">Who I Am</h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-card glass-card">
-          <div class="card-3d">
-            <div class="about-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-            </div>
-            <h3>Education</h3>
-            <p>B.Sc. in Computer Science and Engineering</p>
-            <span class="accent">United International University</span>
-            <span class="tag">CGPA: 3.74 | Expected 2026</span>
-          </div>
-        </div>
-        <div class="about-card glass-card">
-          <div class="card-3d">
-            <div class="about-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
-            </div>
-            <h3>Objective</h3>
-            <p>As a student at UIU, I aim to apply my skills and knowledge to contribute effectively in a dynamic environment.</p>
-            <span class="accent">Always Learning</span>
-          </div>
-        </div>
-        <div class="about-card glass-card">
-          <div class="card-3d">
-            <div class="about-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <h3>HSC</h3>
-            <p>Mosjid Mission Academy School and College</p>
-            <span class="accent">GPA: 5.00 | 2021</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-dark" id="skills">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Skills</span>
-        <h2 class="section-title">Tech Stack</h2>
-      </div>
-      
-      <div class="orbit-scene" id="orbitScene">
-        <div class="orbit-ellipse e1"></div>
-        <div class="orbit-ellipse e2"></div>
-        <div class="orbit-ellipse e3"></div>
-        <div class="orbit-core">
-          <div class="core-glow"></div>
-          <div class="core-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-        </div>
-        
-        <div class="planet" data-name="C">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C" loading="lazy">
-          <span>C</span>
-        </div>
-        <div class="planet" data-name="C++">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" loading="lazy">
-          <span>C++</span>
-        </div>
-        <div class="planet" data-name="Python">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy">
-          <span>Python</span>
-        </div>
-        
-        <div class="planet" data-name="JavaScript">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy">
-          <span>JavaScript</span>
-        </div>
-        <div class="planet" data-name="TypeScript">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy">
-          <span>TypeScript</span>
-        </div>
-        
-        <div class="planet" data-name="HTML">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" loading="lazy">
-          <span>HTML</span>
-        </div>
-        <div class="planet" data-name="CSS">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" loading="lazy">
-          <span>CSS</span>
-        </div>
-        <div class="planet" data-name="Tailwind">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" loading="lazy">
-          <span>Tailwind</span>
-        </div>
-        <div class="planet" data-name="React">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" loading="lazy">
-          <span>React</span>
-        </div>
-        <div class="planet" data-name="Node.js">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" loading="lazy">
-          <span>Node.js</span>
-        </div>
-        <div class="planet" data-name="Express">
-          <img class="invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" loading="lazy">
-          <span>Express</span>
-        </div>
-        <div class="planet" data-name="MySQL">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" loading="lazy">
-          <span>MySQL</span>
-        </div>
-        <div class="planet" data-name="Git">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" loading="lazy">
-          <span>Git</span>
-        </div>
-        <div class="planet" data-name="Docker">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" loading="lazy">
-          <span>Docker</span>
-        </div>
-        <div class="planet" data-name="Linux">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" loading="lazy">
-          <span>Linux</span>
-        </div>
-        <div class="planet" data-name="VS Code">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy">
-          <span>VS Code</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="projects">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Projects</span>
-        <h2 class="section-title">Featured Work</h2>
-      </div>
-      <div class="projects-grid">
-        <article class="project-card glass-card featured">
-          <div class="card-3d">
-            <div class="project-badge">AI / Research</div>
-            <h3 class="project-title">Agentic Trade – Self-Correcting LLM Trading Agent</h3>
-            <p class="project-role">Research Project | Remember, Verify, Act</p>
-            <p class="project-description">Self-correcting agent memory for LLM trading agents, evaluated in a one-year point-in-time study against FinMem. Includes a bilingual (English/Bangla) trading and analysis app with a guarded autopilot on Alpaca paper trading.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>LLM Agents</span>
-              <span>Alpaca API</span>
-              <span>JavaScript</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/Agentic_trade" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">Research</div>
-            <h3 class="project-title">Green Code Interaction Benchmark</h3>
-            <p class="project-role">Research Project | Energy Efficiency of AI Code</p>
-            <p class="project-description">Experimental framework measuring the energy efficiency of AI-generated code under one-shot and realistic multi-turn coding interactions across multiple AI models.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>Jupyter</span>
-              <span>Benchmarking</span>
-              <span>LaTeX</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/green-code-interaction-benchmark" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">IoT</div>
-            <h3 class="project-title">SPAK – Smart Precision Agricultural Kit</h3>
-            <p class="project-role">Team Leader | ESP32, NPK Sensor, Web Dashboard</p>
-            <p class="project-description">Modular rover for precision agriculture with ESP32-based control, Modbus RTU, and real-time soil data. Dashboard with module status and sensor values.</p>
-            <div class="project-tech">
-              <span>ESP32</span>
-              <span>Modbus RTU</span>
-              <span>Web Dashboard</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/spak-dashboard" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-              <a href="https://spak-dashboard-plum.vercel.app" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Live Demo
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">Web</div>
-            <h3 class="project-title">UniHub – Social Platform</h3>
-            <p class="project-role">DBMS Lab Project</p>
-            <p class="project-description">Role-based access for students, alumni, and faculty with local/national feed system and academic modules.</p>
-            <div class="project-tech">
-              <span>HTML</span>
-              <span>JS</span>
-              <span>Tailwind</span>
-              <span>Express.js</span>
-              <span>MySQL</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/UniHub" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">PWA</div>
-            <h3 class="project-title">Hisab Nikash Pro – Finance PWA</h3>
-            <p class="project-role">Personal Project | Offline-first</p>
-            <p class="project-description">Offline-first personal finance and utility app with daily expense limits, a lend/borrow ledger, quick notes, and background cloud sync.</p>
-            <div class="project-tech">
-              <span>TypeScript</span>
-              <span>PWA</span>
-              <span>Offline Sync</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/Hisab-Nikash-Pro" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-              <a href="https://hisab-nikash-pro-six.vercel.app" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Live Demo
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">Desktop</div>
-            <h3 class="project-title">IPTV Player</h3>
-            <p class="project-role">Personal Project | Cross-platform</p>
-            <p class="project-description">Fast, lightweight IPTV player for Windows, Linux, and macOS that streams M3U/M3U8 playlists with a clean interface.</p>
-            <div class="project-tech">
-              <span>Tauri</span>
-              <span>Rust</span>
-              <span>React</span>
-              <span>TypeScript</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/iptv-player" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">Desktop</div>
-            <h3 class="project-title">Self Management System</h3>
-            <p class="project-role">AOOP Lab Project | 2nd Runner-Up</p>
-            <p class="project-description">Personal dashboard with task, note, and goal management. Awarded 2nd Runner-Up in UIU AOOP Project Showcase.</p>
-            <div class="project-tech">
-              <span>JavaFX</span>
-              <span>OOP</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/Self_Management" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-              <span class="btn btn-small btn-static">🏆 2nd Runner-Up</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass-card">
-          <div class="card-3d">
-            <div class="project-badge">CLI</div>
-            <h3 class="project-title">CLI Download Manager</h3>
-            <p class="project-role">Personal Project | Terminal UI</p>
-            <p class="project-description">Textual-based terminal download manager for files and YouTube videos with progress tracking, pause/resume, and download history.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>Textual</span>
-              <span>TUI</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/nurulhudaarosh/cli_download_manager" target="_blank" rel="noopener" class="btn btn-small">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-      <div class="projects-more">
-        <a href="https://github.com/nurulhudaarosh?tab=repositories" target="_blank" rel="noopener" class="btn btn-glass">See all projects on GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-dark" id="experience">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Experience</span>
-        <h2 class="section-title">Leadership & Achievements</h2>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="card-3d">
-              <span class="timeline-date">2025 – 2026</span>
-              <h3 class="timeline-title">Senior Executive – UIU Robotics Club</h3>
-              <p class="timeline-description">Event Management &amp; Logistics wing, Core Committee 2025–2026. <a href="https://robotics.uiu.ac.bd/committee-members/md-nurul-huda" target="_blank" rel="noopener" class="timeline-link">View club profile →</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="card-3d">
-              <span class="timeline-date">2025</span>
-              <h3 class="timeline-title">Team Leader – Segmentation Fault (SPAK Project)</h3>
-              <p class="timeline-description">Managed 6-member team for IoT rover. Integrated hardware, software, and UI components.</p>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="card-3d">
-              <span class="timeline-date">2025</span>
-              <h3 class="timeline-title">Team Leader – UniHub Project</h3>
-              <p class="timeline-description">Led design and development of university-based social platform.</p>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="card-3d">
-              <span class="timeline-date">2025</span>
-              <h3 class="timeline-title">Volunteer – UIU CSE Fest 2025</h3>
-              <p class="timeline-description">Assisted in managing and coordinating technical events. Supported logistics and helped ensure smooth operations.</p>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="card-3d">
-              <span class="timeline-date">2024</span>
-              <h3 class="timeline-title">Team Leader – Self Management System</h3>
-              <p class="timeline-description">Coordinated design and features for productivity-focused desktop app.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Contact</span>
-        <h2 class="section-title">Get In Touch</h2>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <p class="contact-text">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
-          <div class="contact-links">
-            <a href="mailto:mhuda223303@bscse.uiu.ac.bd" class="contact-item glass-card">
-              <div class="card-3d">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                <span>mhuda223303@bscse.uiu.ac.bd</span>
-              </div>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow mono"><span class="dot"></span> CSE @ United International University · Dhaka</p>
+          <h1 class="hero-title">
+            MD. Nurul Huda
+            <span class="hero-sub">builds <em>useful</em> software — from IoT rovers to AI agents.</span>
+          </h1>
+          <p class="hero-lead">Final-year Computer Science &amp; Engineering student, undergraduate teaching assistant and team lead. I work across full stack web, embedded systems and LLM-based agents.</p>
+          <div class="hero-actions">
+            <a href="MD-Nurul-Huda-CV.pdf" target="_blank" rel="noopener" class="btn btn-solid">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+              Download CV
             </a>
-            <a href="tel:+8801792021499" class="contact-item glass-card">
-              <div class="card-3d">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                <span>+880 1792-021499</span>
+            <a href="#contact" class="btn btn-line">Get in touch</a>
+          </div>
+          <ul class="hero-social" aria-label="Profiles">
+            <li><a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener">GitHub ↗</a></li>
+            <li><a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+            <li><a href="mailto:mhuda223303@bscse.uiu.ac.bd">Email ↗</a></li>
+          </ul>
+        </div>
+        <figure class="portrait">
+          <div class="portrait-frame">
+            <picture>
+              <source srcset="assets/profile.webp" type="image/webp">
+              <img src="assets/profile.jpg" alt="Portrait of MD. Nurul Huda" width="288" height="288">
+            </picture>
+          </div>
+          <figcaption class="mono">
+            <span>NH—2026</span>
+            <span>23.78°N 90.42°E</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="container">
+        <dl class="stats">
+          <div><dt>CGPA</dt><dd>3.80</dd></div>
+          <div><dt>Projects shipped</dt><dd>9+</dd></div>
+          <div><dt>Project-show awards</dt><dd>2</dd></div>
+          <div><dt>Teams led</dt><dd>3</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head">
+          <span class="section-num mono">01</span>
+          <h2>About</h2>
+        </header>
+        <div class="about-grid">
+          <div class="about-text">
+            <p class="lede">I'm a Computer Science &amp; Engineering student at United International University who enjoys turning ideas into working systems — and leading the teams that build them.</p>
+            <p>I've led teams building an IoT precision-agriculture rover, a university social platform and an award-winning desktop productivity app. I've also been an undergraduate teaching assistant for Advanced Object Oriented Programming, and I serve as a Senior Executive at the UIU Robotics Club.</p>
+            <p>Right now I'm most interested in reliable LLM agents, energy-efficient code and practical full stack products.</p>
+          </div>
+          <div class="edu">
+            <h3 class="label mono">Education</h3>
+            <article class="edu-item">
+              <div class="edu-top">
+                <h4>United International University</h4>
+                <span class="mono muted">2026</span>
               </div>
-            </a>
-            <a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener" class="contact-item glass-card">
-              <div class="card-3d">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                <span>LinkedIn Profile</span>
+              <p>B.Sc. in Computer Science and Engineering</p>
+              <p class="muted">CGPA 3.80 · Expected graduation 2026</p>
+            </article>
+            <article class="edu-item">
+              <div class="edu-top">
+                <h4>Mosjid Mission Academy School and College</h4>
+                <span class="mono muted">2021</span>
               </div>
-            </a>
-            <a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener" class="contact-item glass-card">
-              <div class="card-3d">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                <span>GitHub Profile</span>
-              </div>
-            </a>
+              <p>H.S.C. (Science)</p>
+              <p class="muted">GPA 5.00</p>
+            </article>
           </div>
         </div>
-        <form class="contact-form glass-card" id="contactForm">
-          <div class="card-3d">
-            <div class="form-group">
-              <label for="name" class="sr-only">Your name</label>
-              <input type="text" id="name" name="name" placeholder="Your Name" autocomplete="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email" class="sr-only">Your email</label>
-              <input type="email" id="email" name="email" placeholder="Your Email" autocomplete="email" required>
-            </div>
-            <div class="form-group">
-              <label for="message" class="sr-only">Your message</label>
-              <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-submit">
-              <span>Send Message</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            </button>
-          </div>
-        </form>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- Experience -->
+    <section class="section" id="experience">
+      <div class="container">
+        <header class="section-head">
+          <span class="section-num mono">02</span>
+          <h2>Experience &amp; Leadership</h2>
+        </header>
+        <ol class="xp">
+          <li class="xp-item">
+            <span class="xp-date mono">2025 — 2026</span>
+            <div>
+              <h3>Senior Executive <span class="at">· UIU Robotics Club</span></h3>
+              <p>Event Management &amp; Logistics wing, Core Committee 2025–2026.</p>
+              <a href="https://robotics.uiu.ac.bd/committee-members/md-nurul-huda" target="_blank" rel="noopener" class="text-link">Club profile ↗</a>
+            </div>
+          </li>
+          <li class="xp-item">
+            <span class="xp-date mono">Summer 2025</span>
+            <div>
+              <h3>Undergraduate Teaching Assistant <span class="at">· UIU</span></h3>
+              <p>Course: Advanced Object Oriented Programming.</p>
+            </div>
+          </li>
+          <li class="xp-item">
+            <span class="xp-date mono">2025</span>
+            <div>
+              <h3>Volunteer <span class="at">· UIU CSE Fest 2025</span></h3>
+              <p>Assisted in managing and coordinating technical events.</p>
+            </div>
+          </li>
+          <li class="xp-item">
+            <span class="xp-date mono">2025</span>
+            <div>
+              <h3>Team Leader <span class="at">· Segmentation Fault (SPAK)</span></h3>
+              <p>Managed a 6-member team building an IoT rover; integrated hardware, software and UI components.</p>
+            </div>
+          </li>
+          <li class="xp-item">
+            <span class="xp-date mono">2025</span>
+            <div>
+              <h3>Team Leader <span class="at">· UniHub</span></h3>
+              <p>Led design and development of a university-based social platform.</p>
+            </div>
+          </li>
+          <li class="xp-item">
+            <span class="xp-date mono">2023</span>
+            <div>
+              <h3>Team Leader <span class="at">· Self Management System</span></h3>
+              <p>Coordinated design and features for a productivity-focused desktop app.</p>
+            </div>
+          </li>
+        </ol>
+
+        <h3 class="label mono sub-label">Achievements</h3>
+        <div class="awards">
+          <article class="award">
+            <span class="award-rank">Champion</span>
+            <h4>Aegis</h4>
+            <p>CSE Project Show, Summer 2025 · Software Engineering Lab</p>
+          </article>
+          <article class="award">
+            <span class="award-rank">3rd Runner-Up</span>
+            <h4>Self Management System</h4>
+            <p>CSE Project Show, Fall 2023 · AOOP Lab</p>
+          </article>
+          <article class="award">
+            <span class="award-rank">GPA 5.00</span>
+            <h4>Higher Secondary Certificate</h4>
+            <p>Science, 2021</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section-head">
+          <span class="section-num mono">03</span>
+          <h2>Selected Projects</h2>
+          <a href="https://github.com/nurulhudaarosh?tab=repositories" target="_blank" rel="noopener" class="text-link head-link">All repositories ↗</a>
+        </header>
+
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button class="chip is-active" data-filter="all">All</button>
+          <button class="chip" data-filter="ai">AI &amp; Research</button>
+          <button class="chip" data-filter="web">Web</button>
+          <button class="chip" data-filter="iot">IoT</button>
+          <button class="chip" data-filter="desktop">Desktop &amp; CLI</button>
+        </div>
+
+        <div class="projects">
+          <article class="project project-feature" data-tags="ai">
+            <div class="project-meta mono"><span>01</span><span>AI · Research</span></div>
+            <h3>Agentic Trade</h3>
+            <p class="project-tagline">Remember, Verify, Act — a self-correcting agent memory for LLM trading agents.</p>
+            <p>One-year point-in-time study against FinMem, plus a bilingual (English/Bangla) trading and analysis app with a guarded autopilot on Alpaca paper trading.</p>
+            <ul class="tags"><li>Python</li><li>LLM Agents</li><li>Alpaca API</li><li>JavaScript</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/Agentic_trade" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="web">
+            <div class="project-meta mono"><span>02</span><span class="badge">🏆 Champion</span></div>
+            <h3>Aegis</h3>
+            <p class="project-tagline">Emergency reporting and response platform.</p>
+            <p>Civilians report incidents with location and media; officials manage cases, evidence and reports. Role-based REST API. Champion, CSE Project Show Summer 2025.</p>
+            <ul class="tags"><li>Django</li><li>DRF</li><li>REST API</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/aegis_backend" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="ai">
+            <div class="project-meta mono"><span>03</span><span>Research</span></div>
+            <h3>Green Code Interaction Benchmark</h3>
+            <p class="project-tagline">How energy-efficient is AI-generated code?</p>
+            <p>Experimental framework evaluating energy efficiency of AI-generated code under one-shot and realistic multi-turn interactions across multiple models.</p>
+            <ul class="tags"><li>Python</li><li>Jupyter</li><li>LaTeX</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/green-code-interaction-benchmark" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="iot">
+            <div class="project-meta mono"><span>04</span><span>IoT · Team Lead</span></div>
+            <h3>SPAK — Smart Precision Agricultural Kit</h3>
+            <p class="project-tagline">Modular rover for precision agriculture.</p>
+            <p>ESP32-based control over Modbus RTU with NPK sensing and real-time soil data, plus a dashboard for module status and sensor values.</p>
+            <ul class="tags"><li>ESP32</li><li>Modbus RTU</li><li>NPK Sensor</li><li>Dashboard</li></ul>
+            <div class="project-links">
+              <a href="https://spak-dashboard-plum.vercel.app" target="_blank" rel="noopener" class="text-link">Live demo ↗</a>
+              <a href="https://github.com/nurulhudaarosh/spak-dashboard" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="web">
+            <div class="project-meta mono"><span>05</span><span>Web · Team Lead</span></div>
+            <h3>UniHub</h3>
+            <p class="project-tagline">Social platform for a university community.</p>
+            <p>Role-based access for students, alumni and faculty, with local/national feeds and academic modules.</p>
+            <ul class="tags"><li>Express.js</li><li>MySQL</li><li>Tailwind</li><li>JavaScript</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/UniHub" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="web">
+            <div class="project-meta mono"><span>06</span><span>PWA</span></div>
+            <h3>Hisab Nikash Pro</h3>
+            <p class="project-tagline">Offline-first personal finance app.</p>
+            <p>Daily expense limits, a lend/borrow ledger, quick notes and background cloud sync — works without a connection.</p>
+            <ul class="tags"><li>TypeScript</li><li>PWA</li><li>Offline Sync</li></ul>
+            <div class="project-links">
+              <a href="https://hisab-nikash-pro-six.vercel.app" target="_blank" rel="noopener" class="text-link">Live demo ↗</a>
+              <a href="https://github.com/nurulhudaarosh/Hisab-Nikash-Pro" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="desktop">
+            <div class="project-meta mono"><span>07</span><span class="badge">🏆 3rd Runner-Up</span></div>
+            <h3>Self Management System</h3>
+            <p class="project-tagline">Personal dashboard for tasks, notes and goals.</p>
+            <p>JavaFX desktop app built on OOP principles. 3rd Runner-Up at the UIU CSE Project Show, Fall 2023.</p>
+            <ul class="tags"><li>Java</li><li>JavaFX</li><li>OOP</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/Self_Management" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="desktop">
+            <div class="project-meta mono"><span>08</span><span>Desktop</span></div>
+            <h3>IPTV Player</h3>
+            <p class="project-tagline">Lightweight cross-platform streaming player.</p>
+            <p>Streams M3U/M3U8 playlists on Windows, Linux and macOS with a clean, fast interface.</p>
+            <ul class="tags"><li>Tauri</li><li>Rust</li><li>React</li><li>TypeScript</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/iptv-player" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+
+          <article class="project" data-tags="desktop">
+            <div class="project-meta mono"><span>09</span><span>CLI</span></div>
+            <h3>CLI Download Manager</h3>
+            <p class="project-tagline">Terminal UI for files and YouTube downloads.</p>
+            <p>Progress tracking, pause/resume and download history in a keyboard-driven TUI.</p>
+            <ul class="tags"><li>Python</li><li>Textual</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/nurulhudaarosh/cli_download_manager" target="_blank" rel="noopener" class="text-link">Source ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills">
+      <div class="container">
+        <header class="section-head">
+          <span class="section-num mono">04</span>
+          <h2>Skills &amp; Tools</h2>
+        </header>
+        <div class="skills">
+          <div class="skill-row"><h3 class="mono">Languages</h3><ul class="tags"><li>C</li><li>C++</li><li>Python</li><li>JavaScript</li><li>TypeScript</li><li>Java</li><li>SQL</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Web</h3><ul class="tags"><li>HTML</li><li>CSS</li><li>Tailwind CSS</li><li>React</li><li>Node.js</li><li>Express.js</li><li>Django</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Database</h3><ul class="tags"><li>MySQL</li><li>SQLite</li></ul></div>
+          <div class="skill-row"><h3 class="mono">IoT</h3><ul class="tags"><li>ESP32</li><li>Arduino</li><li>Raspberry Pi</li><li>Modbus RTU</li></ul></div>
+          <div class="skill-row"><h3 class="mono">Tools</h3><ul class="tags"><li>Git</li><li>Docker</li><li>VS Code</li><li>LaTeX</li><li>Tauri</li></ul></div>
+          <div class="skill-row"><h3 class="mono">OS</h3><ul class="tags"><li>Linux — Fedora, Ubuntu, Arch</li></ul></div>
+        </div>
+
+        <div class="console">
+          <div class="console-copy">
+            <h3>Prefer the command line?</h3>
+            <p>Explore this portfolio from a tiny terminal. Try <code>help</code>, <code>projects</code> or <code>cv</code>. Use ↑/↓ for history and Tab to autocomplete.</p>
+          </div>
+          <div class="terminal" id="terminal">
+            <div class="terminal-bar">
+              <span></span><span></span><span></span>
+              <p class="mono">nurul@portfolio: ~</p>
+            </div>
+            <div class="terminal-body mono" id="terminalBody">
+              <div class="terminal-output" id="terminalOutput">
+                <p class="t-line">Welcome! Type <span class="t-accent">help</span> to see available commands.</p>
+              </div>
+              <label class="terminal-input-line">
+                <span class="t-prompt">~ $</span>
+                <input type="text" class="terminal-input" id="terminalInput" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Terminal command input">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <header class="section-head">
+          <span class="section-num mono">05</span>
+          <h2>Contact</h2>
+        </header>
+        <div class="contact-grid">
+          <div>
+            <p class="contact-big">Have an internship, project or idea? <em>Let's talk.</em></p>
+            <a class="contact-email" href="mailto:mhuda223303@bscse.uiu.ac.bd">mhuda223303@bscse.uiu.ac.bd</a>
+            <ul class="contact-list">
+              <li><span class="mono muted">Phone</span><a href="tel:+8801580518992">+880 1580-518992</a></li>
+              <li><span class="mono muted">LinkedIn</span><a href="https://linkedin.com/in/nurul-huda-arosh-776241168/" target="_blank" rel="noopener">nurul-huda-arosh ↗</a></li>
+              <li><span class="mono muted">GitHub</span><a href="https://github.com/nurulhudaarosh" target="_blank" rel="noopener">nurulhudaarosh ↗</a></li>
+              <li><span class="mono muted">Location</span><span>Vatara, Dhaka, Bangladesh</span></li>
+            </ul>
+          </div>
+          <form class="form" id="contactForm">
+            <label class="field">
+              <span class="mono">Name</span>
+              <input type="text" id="name" name="name" autocomplete="name" required>
+            </label>
+            <label class="field">
+              <span class="mono">Email</span>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </label>
+            <label class="field">
+              <span class="mono">Message</span>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </label>
+            <button type="submit" class="btn btn-solid">Send message →</button>
+            <p class="form-note muted">Opens your email app with the message ready to send.</p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <p>&copy; <span id="year">2026</span> MD. Nurul Huda. Built with passion.</p>
+    <div class="container footer-inner">
+      <p>&copy; <span id="year">2026</span> MD. Nurul Huda</p>
+      <p class="mono muted">Hand-built with HTML, CSS &amp; JS · Hosted on GitHub Pages</p>
+      <a href="#top" class="text-link">Back to top ↑</a>
     </div>
   </footer>
 
