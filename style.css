@@ -371,8 +371,43 @@ textarea:focus-visible {
 }
 
 .nav-links {
+  position: relative;
   display: flex;
   gap: 4px;
+}
+
+.nav-links li:not(.nav-indicator) {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sec, var(--accent)) 13%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sec, var(--accent)) 28%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(.3, .7, .2, 1), width 0.35s cubic-bezier(.3, .7, .2, 1), opacity 0.2s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.nav-indicator.is-shown {
+  opacity: 1;
+}
+
+.nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-about), var(--c-exp), var(--c-proj), var(--c-skills), var(--c-contact));
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
 }
 
 .nav-links a {
@@ -391,7 +426,6 @@ textarea:focus-visible {
 
 .nav-links a.is-active {
   color: var(--ink);
-  background: var(--accent-soft);
 }
 
 .nav-tools {
@@ -408,7 +442,10 @@ textarea:focus-visible {
 .nav-toggle {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
+  color: var(--ink);
 }
 
 .nav-toggle span {
@@ -544,24 +581,6 @@ textarea:focus-visible {
   margin-top: 34px;
 }
 
-.hero-social {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  margin-top: 30px;
-  font-size: 0.9rem;
-}
-
-.hero-social a {
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.hero-social a:hover {
-  color: var(--accent);
-}
-
 .portrait {
   grid-area: portrait;
   position: relative;
@@ -597,10 +616,9 @@ textarea:focus-visible {
 
 .portrait-frame picture {
   position: absolute;
-  left: 50%;
+  right: 0;
   bottom: 0;
-  width: 100%;
-  transform: translateX(-50%);
+  width: 88%;
 }
 
 .portrait figcaption {
@@ -1583,6 +1601,25 @@ textarea:focus-visible {
     color: var(--accent);
   }
 
+  .nav-indicator {
+    display: none;
+  }
+
+  .nav-links {
+    counter-reset: navnum;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-links a::before {
+    counter-increment: navnum;
+    content: '0' counter(navnum);
+    display: inline-block;
+    width: 2.2em;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-3);
+  }
+
   .hero-grid,
   .about-grid,
   .contact-grid,
@@ -1726,10 +1763,6 @@ textarea:focus-visible {
 
   .hero-actions {
     margin-top: 3vh;
-  }
-
-  .hero-social {
-    margin-top: 2.6vh;
   }
 
   .portrait {
@@ -3216,6 +3249,616 @@ mark {
   }
 
   main .form-note {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Floating social rail (left edge)
+   ========================================================================== */
+.social-rail {
+  position: fixed;
+  left: clamp(12px, 2vw, 28px);
+  bottom: 0;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: rail-in 0.6s 0.4s ease both;
+}
+
+.social-rail ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: color-mix(in srgb, var(--bg-elev) 80%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.social-rail::after {
+  content: '';
+  width: 1px;
+  height: clamp(40px, 10vh, 90px);
+  background: linear-gradient(to bottom, var(--line-strong), transparent);
+}
+
+.social-rail a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-rail a:hover,
+.social-rail a:focus-visible {
+  color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateX(3px);
+}
+
+.social-rail svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.social-rail svg .fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.social-rail a::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translate(-4px, -50%);
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 500 0.72rem/1.4 var(--mono);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.social-rail a:hover::after,
+.social-rail a:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@keyframes rail-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 640px) {
+  .social-rail {
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    animation: none;
+  }
+  .social-rail::after { display: none; }
+  .social-rail ul { flex-direction: row; padding: 5px 8px; }
+  .social-rail a { width: 36px; height: 36px; }
+  .social-rail a:hover, .social-rail a:focus-visible { transform: translateY(-2px); }
+  .social-rail svg { width: 18px; height: 18px; }
+  .social-rail a::after { display: none; }
+  .footer { padding-bottom: 76px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-rail { animation: none; }
+  .nav-indicator { transition: opacity 0.2s ease; }
+  .social-rail a { transition: none; }
+}
+
+/* ==========================================================================
+   Hover colour polish (pointer devices only)
+   ========================================================================== */
+.tags li,
+.stats dt,
+.stats dd,
+.xp-body h3,
+.xp-date,
+.xp-body::before,
+.edu-item h4,
+.edu-item::before,
+.award h4,
+.brand-mark,
+.contact-list span.mono,
+.field input,
+.field textarea {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  /* Brand */
+  .brand:hover .brand-mark {
+    background: var(--accent);
+    color: var(--accent-ink);
+    transform: rotate(-6deg);
+  }
+
+  /* Buttons in the nav and elsewhere */
+  .icon-btn:hover,
+  .pill-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .btn-line:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  /* Project filter chips */
+  .chip:not(.is-active):hover {
+    border-color: var(--sec, var(--accent));
+    color: var(--sec, var(--accent));
+    background: color-mix(in srgb, var(--sec, var(--accent)) 10%, transparent);
+  }
+
+  /* Hero stats */
+  .stats > div:hover dt { color: var(--accent); }
+  .stats > div:hover dd { color: var(--accent); transform: translateY(-2px); }
+
+  /* Experience timeline */
+  .xp-item:hover .xp-body::before {
+    background: var(--sec);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--sec) 18%, transparent);
+  }
+  .xp-item:hover .xp-body h3,
+  .xp-item:hover .xp-date { color: var(--sec); }
+
+  /* Education */
+  .edu-item:hover::before { transform: scale(1.5); }
+  .edu-item:hover h4 { color: var(--sec); }
+
+  /* Awards */
+  .award:hover {
+    border-color: color-mix(in srgb, var(--award, var(--accent)) 45%, var(--line));
+    box-shadow: var(--shadow);
+  }
+  .award:hover h4 { color: var(--award, var(--accent)); }
+
+  /* Tech tags inside project cards */
+  .project .tags li:hover {
+    color: var(--cat, var(--accent));
+    border-color: color-mix(in srgb, var(--cat, var(--accent)) 45%, var(--line));
+    background: color-mix(in srgb, var(--cat, var(--accent)) 9%, var(--bg));
+  }
+
+  /* Skill chips, tinted with their card's colour */
+  .skill-card .tags li:hover {
+    border-color: color-mix(in srgb, var(--k) 55%, var(--line));
+    background: color-mix(in srgb, var(--k) 10%, var(--bg));
+    transform: translateY(-2px);
+  }
+  .skill-card { transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+  .skill-card:hover {
+    box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--k) 60%, transparent);
+  }
+
+  /* Contact */
+  .contact-list li:hover span.mono { color: var(--sec, var(--accent)); }
+  .field input:not(:focus):hover,
+  .field textarea:not(:focus):hover { border-color: var(--ink-3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand:hover .brand-mark,
+  .stats > div:hover dd,
+  .edu-item:hover::before,
+  .skill-card .tags li:hover { transform: none; }
+}
+
+/* ==========================================================================
+   Motion polish
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: staggered entrance on load */
+  main .hero-copy > *,
+  main .hero .portrait-frame,
+  main .hero .portrait-side,
+  main .hero .stats {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  main .hero-copy > :nth-child(1) { animation-delay: 0.05s; }
+  main .hero-copy > :nth-child(2) { animation-delay: 0.15s; }
+  main .hero-copy > :nth-child(3) { animation-delay: 0.28s; }
+  main .hero-copy > :nth-child(4) { animation-delay: 0.38s; }
+  main .hero-copy > :nth-child(5) { animation-delay: 0.48s; }
+  main .hero .portrait-frame { animation-delay: 0.2s; animation-name: rise-scale; }
+  main .hero .portrait-side { animation-delay: 0.45s; }
+  main .hero .stats { animation-delay: 0.6s; }
+
+  /* "hi, that's me!" arrow draws itself in */
+  main .hello svg path {
+    stroke-dasharray: 80;
+    animation: draw 0.9s 1s ease-out both;
+  }
+
+  /* Theme icon spins in whenever it changes */
+  .i-sun,
+  .i-moon {
+    animation: icon-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  /* Skill chips pop in one after another once their card appears */
+  .skill-card.reveal .tags li { opacity: 0; }
+  .skill-card.reveal.is-visible .tags li {
+    opacity: 1;
+    animation: chip-pop 0.45s calc(0.25s + var(--j, 0) * 45ms) cubic-bezier(0.3, 1.4, 0.5, 1) backwards;
+  }
+
+  /* Projects that come back after changing the filter */
+  .project.filter-in {
+    animation: filter-in 0.45s calc(var(--j, 0) * 60ms) cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  /* Experience: the timeline dot pops when its entry is revealed */
+  .xp-item.reveal.is-visible .xp-body::before {
+    animation: dot-pop 0.5s 0.3s cubic-bezier(0.3, 1.6, 0.5, 1) backwards;
+  }
+
+  /* Button arrow / icon nudge */
+  .btn svg { transition: translate 0.25s ease; }
+  .btn-solid:hover svg { translate: 0 2px; }
+}
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 22px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes rise-scale {
+  from { opacity: 0; translate: 0 22px; scale: 0.96; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes draw {
+  from { stroke-dashoffset: 80; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes icon-in {
+  from { opacity: 0; rotate: -90deg; scale: 0.5; }
+  to { opacity: 1; rotate: 0deg; scale: 1; }
+}
+
+@keyframes chip-pop {
+  from { opacity: 0; scale: 0.8; translate: 0 6px; }
+  to { opacity: 1; scale: 1; translate: 0 0; }
+}
+
+@keyframes filter-in {
+  from { opacity: 0; scale: 0.94; translate: 0 14px; }
+  to { opacity: 1; scale: 1; translate: 0 0; }
+}
+
+@keyframes dot-pop {
+  from { scale: 0; }
+  to { scale: 1; }
+}
+
+/* ==========================================================================
+   Design round: covers, featured card, status, awards, contact, footer
+   ========================================================================== */
+
+/* Open-to-work status */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #22a05a 35%, var(--line));
+  background: color-mix(in srgb, #22a05a 9%, var(--bg-elev));
+  color: var(--ink-2);
+  font-size: 0.88rem;
+}
+
+.status-badge strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.status-dot {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22a05a;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22a05a;
+  animation: status-ping 2s ease-out infinite;
+}
+
+@keyframes status-ping {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(2.8); opacity: 0; }
+}
+
+/* Featured project */
+.project-points {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--cat, var(--accent)) 7%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--cat, var(--accent)) 18%, var(--line));
+}
+
+.project-points div {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.project-points dt {
+  padding-top: 2px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cat, var(--accent));
+}
+
+.project-points dd {
+  color: var(--ink-2);
+}
+
+.book .project-points {
+  display: none;
+}
+
+@media (min-width: 1001px) {
+  .project-feature {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 861px) {
+  main .project-feature {
+    grid-column: span 2;
+  }
+}
+
+/* Awards: icons instead of big outlined numbers */
+.award-icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 14px;
+  padding: 7px;
+  box-sizing: content-box;
+  border-radius: 12px;
+  fill: none;
+  stroke: var(--award, var(--accent));
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  background: color-mix(in srgb, var(--award, var(--accent)) 12%, transparent);
+  transition: transform 0.3s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+@media (hover: hover) {
+  .award:hover .award-icon { transform: rotate(-8deg) scale(1.08); }
+}
+
+@media (min-width: 861px) {
+  main .award {
+    min-height: 0;
+  }
+
+  main .award::after {
+    content: none;
+  }
+
+  /* Shorter sections no longer stretch to a full screen */
+  #achievements,
+  #skills {
+    min-height: 0;
+    padding: calc(64px + 6vh) 0 6vh;
+  }
+}
+
+.book .award-icon {
+  width: 18px;
+  height: 18px;
+  padding: 5px;
+  margin-bottom: 8px;
+}
+
+/* Hero quote: quieter and more compact on desktop */
+@media (min-width: 861px) {
+  main .quote-card {
+    padding: 14px 18px 12px;
+    box-shadow: none;
+  }
+
+  main .quote-card::before {
+    font-size: 5rem;
+    bottom: -18px;
+  }
+
+  main .quote-body {
+    min-height: min(118px, 12vh);
+    margin-top: 10px;
+  }
+
+  main .quote-orig { font-size: 1.05rem; }
+  main .quote-orig:lang(ar) { font-size: 1.3rem; line-height: 1.6; }
+  main .quote-orig:lang(bn),
+  main .quote-orig:lang(zh-Hant) { font-size: 1.1rem; }
+  main .quote-trans { font-size: 0.86rem; }
+
+  main .hero .stats {
+    margin-top: 1.5vh;
+  }
+
+  main .hero .stats dd {
+    font-size: clamp(1.7rem, 4.4vh, 2.7rem);
+  }
+}
+
+/* Mobile: lead with the name, then the photo */
+@media (max-width: 860px) {
+  .hero-grid {
+    grid-template-areas:
+      "copy"
+      "portrait"
+      "quote";
+  }
+
+  .portrait {
+    margin-top: 12px;
+  }
+}
+
+/* Contact: copy email */
+.contact-email-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.contact-email-row .contact-email {
+  margin-top: 0;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font: 500 0.78rem var(--mono);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.copy-btn:hover {
+  color: var(--sec, var(--accent));
+  border-color: var(--sec, var(--accent));
+}
+
+.copy-btn.is-copied {
+  color: #1d8a4e;
+  border-color: #1d8a4e;
+  background: color-mix(in srgb, #22a05a 10%, transparent);
+}
+
+.form-note.is-ok { color: #1d8a4e; }
+.form-note.is-err { color: var(--accent); }
+
+.form button[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--line);
+}
+
+.footer-social {
+  display: flex;
+  gap: 6px;
+}
+
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.footer-social svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-social svg .fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot::after { animation: none; }
+  .award-icon { transition: none; }
+}
+
+.book .copy-btn {
+  display: none;
+}
+
+/* Featured project on desktop: points replace the longer paragraph */
+@media (min-width: 861px) {
+  main .project-feature p:not(.project-tagline) {
     display: none;
   }
 }

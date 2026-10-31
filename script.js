@@ -18,8 +18,12 @@ const nav = document.getElementById('nav');
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 
+const navProgress = document.getElementById('navProgress');
+
 function onScroll() {
   nav.classList.toggle('is-scrolled', window.scrollY > 12);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  navProgress.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
 }
 
 window.addEventListener('scroll', onScroll, { passive: true });
@@ -43,6 +47,10 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeMenu();
 });
 
+document.addEventListener('click', (e) => {
+  if (navLinks.classList.contains('is-open') && !nav.contains(e.target)) closeMenu();
+});
+
 // Highlight the nav link of the section in view
 const navAnchors = Array.from(navLinks.querySelectorAll('a'));
 const sectionObserver = new IntersectionObserver((entries) => {
@@ -50,8 +58,31 @@ const sectionObserver = new IntersectionObserver((entries) => {
     if (!entry.isIntersecting) return;
     const id = entry.target.dataset.nav || entry.target.id;
     navAnchors.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+    moveIndicator();
   });
 }, { rootMargin: '-45% 0px -50% 0px' });
+
+// Sliding pill behind the active link, tinted with that section's colour
+const navIndicator = navLinks.querySelector('.nav-indicator');
+function moveIndicator() {
+  const active = navLinks.querySelector('a.is-active');
+  if (!active) {
+    navIndicator.classList.remove('is-shown');
+    return;
+  }
+  navIndicator.style.width = `${active.offsetWidth}px`;
+  navIndicator.style.transform = `translateX(${active.parentElement.offsetLeft}px)`;
+  navIndicator.style.setProperty('--sec', `var(--c-${{ experience: 'exp' }[active.hash.slice(1)] || active.hash.slice(1)})`);
+  navIndicator.classList.add('is-shown');
+}
+window.addEventListener('resize', moveIndicator);
+document.fonts?.ready.then(moveIndicator);
+window.addEventListener('scroll', () => {
+  if (window.scrollY < window.innerHeight * 0.4) {
+    navAnchors.forEach(a => a.classList.remove('is-active'));
+    moveIndicator();
+  }
+}, { passive: true });
 
 document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section));
 
@@ -165,6 +196,49 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
+
+  // Stagger cards that sit side by side; drop the delay afterwards so hovers stay snappy
+  document.querySelectorAll('.projects, .skills, .awards, .xp').forEach(group => {
+    Array.from(group.children).forEach((el, i) => {
+      if (!el.classList.contains('reveal')) return;
+      el.style.transitionDelay = `${(i % 3) * 90}ms`;
+      el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
+    });
+  });
+}
+
+// Index skill chips so they can pop in one after another
+document.querySelectorAll('.skill-card .tags').forEach(list => {
+  Array.from(list.children).forEach((li, i) => li.style.setProperty('--j', i));
+});
+
+// Count the hero stats up when they come into view
+const statValues = document.querySelectorAll('main .stats dd');
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      countObserver.unobserve(entry.target);
+      const el = entry.target;
+      const text = el.textContent.trim();
+      const match = text.match(/^([\d.]+)(.*)$/);
+      if (!match) return;
+      const target = parseFloat(match[1]);
+      const decimals = (match[1].split('.')[1] || '').length;
+      const suffix = match[2];
+      const start = performance.now();
+      const duration = 1200;
+      const step = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = (target * eased).toFixed(decimals) + suffix;
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = text;
+      };
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.6 });
+  statValues.forEach(el => countObserver.observe(el));
 }
 
 // Project filters
@@ -178,7 +252,15 @@ filterButtons.forEach(button => {
     projects.forEach(project => {
       const show = filter === 'all' || project.dataset.tags.split(' ').includes(filter);
       project.classList.toggle('is-hidden', !show);
+      project.classList.remove('filter-in');
       if (show) project.classList.add('is-visible');
+    });
+    let shown = 0;
+    void projectList.offsetWidth;
+    projects.forEach(project => {
+      if (project.classList.contains('is-hidden')) return;
+      project.style.setProperty('--j', Math.min(shown++, 5));
+      project.classList.add('filter-in');
     });
     projectList.scrollTo({ left: 0 });
     updateCarousel();
@@ -420,7 +502,24 @@ terminalBody.addEventListener('click', () => {
 // Contact form (no backend: opens a prefilled email draft)
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', (e) => {
+const formNote = document.getElementById('formNote');
+const formButton = contactForm.querySelector('button[type="submit"]');
+const formNoteDefault = formNote.textContent;
+
+function setFormNote(text, state) {
+  formNote.textContent = text;
+  formNote.classList.toggle('is-ok', state === 'ok');
+  formNote.classList.toggle('is-err', state === 'err');
+}
+
+function openMailFallback(name, email, message) {
+  const subject = `Portfolio contact from ${name}`;
+  const body = `${message}\n\n— ${name} (${email})`;
+  window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Sends straight from the page via FormSubmit; falls back to the visitor's mail app if that fails
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const name = document.getElementById('name').value.trim();
@@ -428,11 +527,58 @@ contactForm.addEventListener('submit', (e) => {
   const message = document.getElementById('message').value.trim();
   if (!name || !email || !message) return;
 
-  const subject = `Portfolio contact from ${name}`;
-  const body = `${message}\n\n— ${name} (${email})`;
   track('contact_form_submit', {});
-  window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  contactForm.reset();
+  formButton.disabled = true;
+  setFormNote('Sending…');
+
+  try {
+    const res = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        _subject: `Portfolio contact from ${name}`,
+        _replyto: email,
+        _template: 'table',
+        _captcha: 'false'
+      })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || res.status);
+    contactForm.reset();
+    setFormNote(`Thanks, ${name.split(' ')[0]}! Your message is on its way.`, 'ok');
+  } catch {
+    setFormNote('Couldn\'t send from here, so your email app is opening instead.', 'err');
+    openMailFallback(name, email, message);
+  } finally {
+    formButton.disabled = false;
+    setTimeout(() => setFormNote(formNoteDefault), 8000);
+  }
+});
+
+// Copy email
+const copyEmail = document.getElementById('copyEmail');
+copyEmail.addEventListener('click', async () => {
+  const label = copyEmail.querySelector('.copy-label');
+  try {
+    await navigator.clipboard.writeText(EMAIL);
+  } catch {
+    const tmp = Object.assign(document.createElement('textarea'), { value: EMAIL });
+    document.body.append(tmp);
+    tmp.select();
+    document.execCommand('copy');
+    tmp.remove();
+  }
+  copyEmail.classList.add('is-copied');
+  label.textContent = 'Copied!';
+  track('contact_click', { method: 'copy_email' });
+  clearTimeout(copyEmail._t);
+  copyEmail._t = setTimeout(() => {
+    copyEmail.classList.remove('is-copied');
+    label.textContent = 'Copy';
+  }, 2000);
 });
 
 // Analytics: CV, contact and outbound clicks
